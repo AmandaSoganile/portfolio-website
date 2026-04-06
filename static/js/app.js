@@ -55,6 +55,33 @@ function initScrollReveal() {
 }
 
 /* ============================================================
+   HERO
+   ============================================================ */
+function initHero(about) {
+  const TAGS = [
+    'Swift dev',
+    'pineapple enjoyer \uD83C\uDF55',
+    'MJ stan forever',
+    'slightly chaotic \u2726',
+  ];
+
+  document.getElementById('hero-role').textContent = '\u2726 ' + about.tagline;
+  document.getElementById('hero-firstname').textContent = about.name.split(' ')[0];
+  document.getElementById('hero-lastname').textContent = about.name.split(' ').slice(-1)[0] + '.';
+  document.getElementById('hero-bio').textContent = about.bio;
+  document.getElementById('hero-learning').textContent =
+    'Currently learning ' + (about.currently_learning[0] || 'AWS');
+
+  const tagsEl = document.getElementById('hero-tags');
+  TAGS.forEach(t => {
+    const span = document.createElement('span');
+    span.className = 'tag';
+    span.textContent = t;
+    tagsEl.appendChild(span);
+  });
+}
+
+/* ============================================================
    MAIN
    ============================================================ */
 async function init() {

@@ -249,3 +249,207 @@ section {
 .d4 { transition-delay: 0.28s; }
 .d5 { transition-delay: 0.36s; }
 .d6 { transition-delay: 0.44s; }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+#hero { background: var(--bg); }
+
+.hero-ghost {
+  position: absolute;
+  font-family: 'Playfair Display', serif;
+  font-size: 28vw;
+  font-weight: 900;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 0.04;
+}
+
+.hero-inner {
+  max-width: 1000px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 80px;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-text { flex: 1; }
+
+.eyebrow {
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+
+.hero-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3.5rem, 7vw, 5.5rem);
+  font-weight: 900;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.hero-name-accent {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3.5rem, 7vw, 5.5rem);
+  font-weight: 900;
+  font-style: italic;
+  line-height: 1;
+  margin-bottom: 24px;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-rule {
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  border-radius: 2px;
+  margin-bottom: 20px;
+}
+
+.hero-bio {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--muted);
+  max-width: 400px;
+  margin-bottom: 28px;
+}
+
+.tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+.tag {
+  font-size: 0.7rem;
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-weight: 500;
+  background: var(--rose-soft);
+  color: var(--muted);
+  border: 1px solid var(--border);
+  transition: all 0.25s;
+}
+
+.tag:hover {
+  background: var(--accent-glow);
+  color: var(--accent);
+  border-color: rgba(74,126,240,0.25);
+}
+
+.btns { display: flex; gap: 12px; }
+
+/* PHOTO FRAME */
+.hero-photo { flex-shrink: 0; position: relative; }
+
+.photo-frame {
+  width: 260px;
+  height: 340px;
+  background: linear-gradient(150deg, var(--accent) 0%, var(--accent2) 100%);
+  border-radius: 140px 140px 100px 100px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 30px 80px var(--accent-glow);
+  animation: floatY 5s ease-in-out infinite;
+}
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+
+.photo-emoji { font-size: 7rem; line-height: 1; }
+
+.photo-badge {
+  position: absolute;
+  bottom: 24px;
+  left: -28px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 8px 14px;
+  font-size: 0.68rem;
+  color: var(--text);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  white-space: nowrap;
+}
+
+.badge-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--rose);
+  margin-right: 6px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.3); }
+}
+
+.deco-ring {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent);
+  opacity: 0.18;
+  animation: spin 14s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* SCROLL INDICATOR */
+.scroll-ind {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.scroll-ind span {
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.scroll-line {
+  width: 1px;
+  height: 36px;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
