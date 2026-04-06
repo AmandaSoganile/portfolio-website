@@ -1,15 +1,212 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amanda Soganile</title>
-    <style>
-        body { font-family: sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; background: #F5EDEB; }
-        p { color: #6B5B5B; font-size: 1.1rem; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amanda Soganile</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-    <p>Frontend coming soon. API is live at <a href="/meta">/meta</a></p>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <div class="nav-logo">A.S</div>
+    <div class="nav-links">
+      <a href="#hero">Home</a>
+      <a href="#about">About</a>
+      <a href="#journey">Journey</a>
+      <a href="#fun-facts">Fun Facts</a>
+      <a href="#projects">Projects</a>
+      <a href="#books">Books</a>
+      <a href="#songs">Songs</a>
+      <a href="#contact">Contact</a>
+      <button id="theme-btn" onclick="toggleTheme()">&#9728; Light</button>
+      <button class="cta-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Say hi &#10022;</button>
+    </div>
+  </nav>
+
+  <!-- HERO — populated by JS -->
+  <section id="hero">
+    <div class="hero-ghost">AS</div>
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="eyebrow" id="hero-role"></div>
+        <div class="hero-name" id="hero-firstname"></div>
+        <div class="hero-name-accent" id="hero-lastname"></div>
+        <div class="hero-rule"></div>
+        <p class="hero-bio" id="hero-bio"></p>
+        <div class="tags" id="hero-tags"></div>
+        <div class="btns">
+          <button class="btn-p" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">View my work</button>
+          <button class="btn-g" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get in touch</button>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <div class="deco-ring"></div>
+        <div class="photo-frame"><div class="photo-emoji">&#129469;&#8205;&#9792;&#65039;</div></div>
+        <div class="photo-badge"><span class="badge-dot"></span><span id="hero-learning"></span></div>
+      </div>
+    </div>
+    <div class="scroll-ind"><span>scroll</span><div class="scroll-line"></div></div>
+  </section>
+
+  <!-- ABOUT — populated by JS -->
+  <section id="about">
+    <div class="section-inner">
+      <div class="s-label">About me</div>
+      <h2 class="s-title">The person <em>behind the code.</em></h2>
+      <div class="about-grid reveal">
+        <div class="about-left">
+          <p class="about-bio" id="about-bio"></p>
+          <p class="about-name-meaning" id="about-meaning"></p>
+        </div>
+        <div class="about-right">
+          <div class="about-block">
+            <div class="about-block-label">Things I love</div>
+            <div class="about-chips" id="about-loves"></div>
+          </div>
+          <div class="about-block">
+            <div class="about-block-label">Currently learning</div>
+            <div class="about-chips" id="about-learning"></div>
+          </div>
+          <div class="about-block">
+            <div class="about-block-label">Life goal</div>
+            <p class="about-goal" id="about-goal"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOURNEY — static content -->
+  <section id="journey">
+    <div class="section-inner">
+      <div class="s-label">The journey</div>
+      <h2 class="s-title">How I got <em>here.</em></h2>
+      <div class="timeline">
+        <div class="tl-item reveal d1">
+          <div class="tl-yr"><div class="yr-big">05</div><div class="yr-sm">2005</div></div>
+          <div class="tl-dot"></div>
+          <div class="tl-body">
+            <div class="tl-t">Born, Bulawayo</div>
+            <div class="tl-d">Arrived with zero plan. Turns out that&#39;s a recurring theme.</div>
+          </div>
+        </div>
+        <div class="tl-item reveal d2">
+          <div class="tl-yr"><div class="yr-big">24</div><div class="yr-sm">2024</div></div>
+          <div class="tl-dot"></div>
+          <div class="tl-body">
+            <div class="tl-t">Built FarmCare</div>
+            <div class="tl-d">First real app. Helped Zimbabwean farmers track livestock without the paperwork. Proud of this one.</div>
+            <span class="chip">Swift &middot; iOS</span>
+          </div>
+        </div>
+        <div class="tl-item reveal d3">
+          <div class="tl-yr"><div class="yr-big">26</div><div class="yr-sm">2026</div></div>
+          <div class="tl-dot tl-dot-current"></div>
+          <div class="tl-body">
+            <div class="tl-t">Integration Engineering Intern</div>
+            <div class="tl-d">Learning everything. Figuring out nothing. Somehow thriving.</div>
+            <span class="chip chip-current">In progress &#10022;</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FUN FACTS — populated by JS -->
+  <section id="fun-facts">
+    <div class="section-inner section-inner-wide">
+      <div class="s-label">Fun facts</div>
+      <h2 class="s-title">Things nobody <em>asked for.</em></h2>
+      <div class="facts-grid" id="facts-grid"></div>
+    </div>
+  </section>
+
+  <!-- PROJECTS — populated by JS -->
+  <section id="projects">
+    <div class="section-inner">
+      <div class="s-label">Work</div>
+      <h2 class="s-title">Things I&#39;ve <em>built.</em></h2>
+      <div class="projects-grid" id="projects-grid"></div>
+    </div>
+  </section>
+
+  <!-- BOOKS — populated by JS -->
+  <section id="books">
+    <div class="section-inner section-inner-wide">
+      <div class="s-label">Reading</div>
+      <h2 class="s-title">Books I&#39;ve read. <em>Add yours.</em></h2>
+      <div class="books-layout">
+        <div class="books-mine">
+          <div class="sub-label">What I&#39;ve read</div>
+          <ul class="books-list" id="books-mine"></ul>
+        </div>
+        <div class="books-community">
+          <div class="sub-label">Community recs</div>
+          <ul class="books-list" id="books-community"></ul>
+          <form class="submit-form" id="books-form">
+            <input type="text" name="name" placeholder="Your name" required maxlength="60">
+            <input type="text" name="title" placeholder="Book title" required maxlength="120">
+            <button type="submit">Add &rarr;</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SONGS — populated by JS -->
+  <section id="songs">
+    <div class="section-inner section-inner-wide">
+      <div class="s-label">Music</div>
+      <h2 class="s-title">My MJ era. <em>Share yours.</em></h2>
+      <div class="books-layout">
+        <div class="books-mine">
+          <div class="sub-label">On my playlist</div>
+          <ul class="books-list" id="songs-mine"></ul>
+        </div>
+        <div class="books-community">
+          <div class="sub-label">Song recs</div>
+          <ul class="books-list" id="songs-community"></ul>
+          <form class="submit-form" id="songs-form">
+            <input type="text" name="name" placeholder="Your name" required maxlength="60">
+            <input type="text" name="title" placeholder="Song title" required maxlength="120">
+            <input type="text" name="artist" placeholder="Artist" maxlength="120">
+            <textarea name="note" placeholder="A note (optional)" maxlength="300" rows="2"></textarea>
+            <button type="submit">Add &rarr;</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-inner">
+      <div class="s-label">Say hi</div>
+      <h2 class="s-title">Let&#39;s <em>talk.</em></h2>
+      <form class="contact-form reveal" id="contact-form">
+        <input type="text" name="name" placeholder="Your name" required maxlength="100">
+        <input type="email" name="slack_email" placeholder="Your Slack email" required maxlength="200">
+        <textarea name="message" placeholder="What&#39;s on your mind?" required rows="5" maxlength="2000"></textarea>
+        <button type="submit" class="btn-p">Send it &#10022;</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- MUSIC PLAYER -->
+  <div id="player">
+    <span class="play-icon">&#9654;</span>
+    <span class="player-track">Billie Jean &mdash; MJ</span>
+    <div class="bars">
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast"></div>
+
+  <script src="/static/js/app.js"></script>
 </body>
 </html>

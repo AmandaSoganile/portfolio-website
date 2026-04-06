@@ -64,12 +64,15 @@ def create_app(config=None):
     from routes.songs import bp as songs_bp
     from routes.contact import bp as contact_bp
 
+    from routes.frontend import bp as frontend_bp
+
     app.register_blueprint(meta_bp)
     app.register_blueprint(about_bp)
     app.register_blueprint(fun_facts_bp)
     app.register_blueprint(books_bp)
     app.register_blueprint(songs_bp)
     app.register_blueprint(contact_bp)
+    app.register_blueprint(frontend_bp)
 
     return app
 
