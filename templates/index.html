@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Amanda Soganile</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="stylesheet" href="/static/css/style.css?v=13">
 </head>
 <body>
 
@@ -34,18 +34,18 @@
         <div class="eyebrow" id="hero-role"></div>
         <div class="hero-name" id="hero-firstname"></div>
         <div class="hero-name-accent" id="hero-lastname"></div>
-        <div class="hero-rule"></div>
-        <p class="hero-bio" id="hero-bio"></p>
-        <div class="tags" id="hero-tags"></div>
         <div class="btns">
-          <button class="btn-p" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">View my work</button>
           <button class="btn-g" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get in touch</button>
+        </div>
+        <div class="hero-socials">
+          <a href="#" class="social-link">GitHub</a>
+          <span class="social-sep">&middot;</span>
+          <a href="#" class="social-link">LinkedIn</a>
         </div>
       </div>
       <div class="hero-photo">
-        <div class="deco-ring"></div>
         <div class="photo-frame"><div class="photo-emoji">&#129469;&#8205;&#9792;&#65039;</div></div>
-        <div class="photo-badge"><span class="badge-dot"></span><span id="hero-learning"></span></div>
+        <div class="sticky-note">hi, that&#39;s me</div>
       </div>
     </div>
     <div class="scroll-ind"><span>scroll</span><div class="scroll-line"></div></div>
@@ -86,23 +86,33 @@
       <h2 class="s-title">How I got <em>here.</em></h2>
       <div class="timeline">
         <div class="tl-item reveal d1">
-          <div class="tl-yr"><div class="yr-big">05</div><div class="yr-sm">2005</div></div>
+          <div class="tl-yr"><div class="yr-big">14</div><div class="yr-sm">~2014</div></div>
           <div class="tl-dot"></div>
           <div class="tl-body">
-            <div class="tl-t">Born, Bulawayo</div>
-            <div class="tl-d">Arrived with zero plan. Turns out that&#39;s a recurring theme.</div>
+            <div class="tl-t">First Program</div>
+            <div class="tl-d">Fourth or fifth grade. A default Scratch game — nothing original, nothing groundbreaking. But I pressed run and something happened on screen because of me. That feeling stuck.</div>
+            <span class="chip">Scratch</span>
           </div>
         </div>
         <div class="tl-item reveal d2">
-          <div class="tl-yr"><div class="yr-big">24</div><div class="yr-sm">2024</div></div>
+          <div class="tl-yr"><div class="yr-big">22</div><div class="yr-sm">~2022</div></div>
           <div class="tl-dot"></div>
           <div class="tl-body">
-            <div class="tl-t">Built FarmCare</div>
-            <div class="tl-d">First real app. Helped Zimbabwean farmers track livestock without the paperwork. Proud of this one.</div>
-            <span class="chip">Swift &middot; iOS</span>
+            <div class="tl-t">The Hackathon Website That Wasn&#39;t</div>
+            <div class="tl-d">My friends and I wanted to build a virtual space tour website. We had no idea how to make a webpage. What came out looked nothing like the plan — and that was the whole lesson. We learned that the gap between the idea in your head and the thing you actually build is where all the real work lives. We also learned that laughing through the chaos makes it worth it. I&#39;d do it again.</div>
+            <span class="chip">HTML &middot; First hackathon</span>
           </div>
         </div>
         <div class="tl-item reveal d3">
+          <div class="tl-yr"><div class="yr-big">∞</div><div class="yr-sm">Always</div></div>
+          <div class="tl-dot"></div>
+          <div class="tl-body">
+            <div class="tl-t">Still Working on: Communication</div>
+            <div class="tl-d">Talking to new people doesn&#39;t come naturally to me. I overthink, I second-guess, I&#39;d rather listen than speak first. But I show up anyway — to new rooms, new conversations, new connections. Every day a little less uncomfortable than the last.</div>
+            <span class="chip">Ongoing</span>
+          </div>
+        </div>
+        <div class="tl-item reveal d4">
           <div class="tl-yr"><div class="yr-big">26</div><div class="yr-sm">2026</div></div>
           <div class="tl-dot tl-dot-current"></div>
           <div class="tl-body">
@@ -115,13 +125,14 @@
     </div>
   </section>
 
-  <!-- FUN FACTS — populated by JS -->
+  <!-- FUN FACTS -->
   <section id="fun-facts">
-    <div class="section-inner section-inner-wide">
-      <div class="s-label">Fun facts</div>
-      <h2 class="s-title">Things nobody <em>asked for.</em></h2>
-      <div class="facts-grid" id="facts-grid"></div>
+    <div class="ff-letters-wrap" aria-hidden="true">
+      <span class="ff-l" id="ff-l-0">F</span>
+      <span class="ff-l" id="ff-l-1">U</span>
+      <span class="ff-l" id="ff-l-2">N</span>
     </div>
+    <div class="ff-cards" id="facts-grid"></div>
   </section>
 
   <!-- PROJECTS — populated by JS -->
@@ -135,46 +146,48 @@
 
   <!-- BOOKS — populated by JS -->
   <section id="books">
-    <div class="section-inner section-inner-wide">
+    <div class="section-inner">
       <div class="s-label">Reading</div>
       <h2 class="s-title">Books I&#39;ve read. <em>Add yours.</em></h2>
-      <div class="books-layout">
-        <div class="books-mine">
-          <div class="sub-label">What I&#39;ve read</div>
-          <ul class="books-list" id="books-mine"></ul>
-        </div>
-        <div class="books-community">
-          <div class="sub-label">Community recs</div>
-          <ul class="books-list" id="books-community"></ul>
-          <form class="submit-form" id="books-form">
-            <input type="text" name="name" placeholder="Your name" required maxlength="60">
-            <input type="text" name="title" placeholder="Book title" required maxlength="120">
-            <button type="submit">Add &rarr;</button>
-          </form>
-        </div>
+      <div class="shelf-wrap">
+        <div class="shelf" id="books-shelf"></div>
+        <div class="shelf-plank"></div>
+      </div>
+      <div class="books-community-section">
+        <div class="books-community-label">Community recs</div>
+        <p class="books-community-note">Add a book you think I should read</p>
+        <div class="community-list" id="books-community"></div>
+        <form class="submit-form" id="books-form">
+          <input type="text" name="name" placeholder="Your name" required maxlength="60">
+          <input type="text" name="title" placeholder="Book title" required maxlength="120">
+          <button type="submit">Add &rarr;</button>
+        </form>
       </div>
     </div>
   </section>
 
   <!-- SONGS — populated by JS -->
   <section id="songs">
-    <div class="section-inner section-inner-wide">
+    <div class="section-inner">
       <div class="s-label">Music</div>
-      <h2 class="s-title">My MJ era. <em>Share yours.</em></h2>
-      <div class="books-layout">
-        <div class="books-mine">
-          <div class="sub-label">On my playlist</div>
-          <ul class="books-list" id="songs-mine"></ul>
+      <h2 class="s-title">What I&#39;m listening to. <em>Share yours.</em></h2>
+      <div class="songs-grid">
+        <div class="songs-mine-section">
+          <div class="songs-section-label">On my playlist</div>
+          <div class="songs-list" id="songs-mine"></div>
         </div>
-        <div class="books-community">
-          <div class="sub-label">Song recs</div>
-          <ul class="books-list" id="songs-community"></ul>
-          <form class="submit-form" id="songs-form">
-            <input type="text" name="name" placeholder="Your name" required maxlength="60">
+        <div class="songs-community-section">
+          <div class="songs-section-label">Recommend a song</div>
+          <p class="songs-note">Drop a song that gets you into the zone — the kind that makes you build, create, and forget what time it is</p>
+          <div class="songs-community-list" id="songs-community"></div>
+          <form class="songs-form" id="songs-form">
+            <div class="songs-form-row">
+              <input type="text" name="name" placeholder="Your name" required maxlength="60">
+              <input type="text" name="artist" placeholder="Artist" maxlength="120">
+            </div>
             <input type="text" name="title" placeholder="Song title" required maxlength="120">
-            <input type="text" name="artist" placeholder="Artist" maxlength="120">
-            <textarea name="note" placeholder="A note (optional)" maxlength="300" rows="2"></textarea>
-            <button type="submit">Add &rarr;</button>
+            <textarea name="note" placeholder="Why this song? (optional)" maxlength="300" rows="2"></textarea>
+            <button type="submit">Add to the list &rarr;</button>
           </form>
         </div>
       </div>
@@ -184,14 +197,25 @@
   <!-- CONTACT -->
   <section id="contact">
     <div class="section-inner">
-      <div class="s-label">Say hi</div>
-      <h2 class="s-title">Let&#39;s <em>talk.</em></h2>
-      <form class="contact-form reveal" id="contact-form">
-        <input type="text" name="name" placeholder="Your name" required maxlength="100">
-        <input type="email" name="slack_email" placeholder="Your Slack email" required maxlength="200">
-        <textarea name="message" placeholder="What&#39;s on your mind?" required rows="5" maxlength="2000"></textarea>
-        <button type="submit" class="btn-p">Send it &#10022;</button>
-      </form>
+      <div class="contact-grid">
+        <div class="contact-left">
+          <div class="s-label">Say hi</div>
+          <h2 class="s-title">Let&#39;s <em>talk.</em></h2>
+          <p class="contact-note">I&#39;m always happy to meet new people and have a good conversation. Whether you want to talk tech, share ideas, or just say hi — my door is open.</p>
+          <div class="contact-socials">
+            <a href="#" class="contact-social-link">GitHub</a>
+            <a href="#" class="contact-social-link">LinkedIn</a>
+          </div>
+        </div>
+        <div class="contact-right">
+          <form class="contact-form" id="contact-form">
+            <input type="text" name="name" placeholder="Your name" required maxlength="100">
+            <input type="email" name="slack_email" placeholder="Your email (Slack preferred)" required maxlength="200">
+            <textarea name="message" placeholder="What&#39;s on your mind?" required rows="5" maxlength="2000"></textarea>
+            <button type="submit" class="btn-p">Send it &#10022;</button>
+          </form>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -204,9 +228,21 @@
     </div>
   </div>
 
+  <!-- BOOK MODAL -->
+  <div id="book-modal" onclick="if(event.target===this)this.classList.remove('open')">
+    <div class="book-modal-inner">
+      <button class="book-modal-close" onclick="document.getElementById('book-modal').classList.remove('open')">&times;</button>
+      <img id="book-modal-cover" alt="Book cover">
+      <div class="book-modal-info">
+        <div class="book-modal-title" id="book-modal-title"></div>
+        <div class="book-modal-author" id="book-modal-author"></div>
+      </div>
+    </div>
+  </div>
+
   <!-- TOAST -->
   <div id="toast"></div>
 
-  <script src="/static/js/app.js"></script>
+  <script src="/static/js/app.js?v=13"></script>
 </body>
 </html>

@@ -53,6 +53,9 @@ def create_app(config=None):
     app.config["DATABASE"] = str(BASE / "portfolio.db")
     app.config["STORAGE_BACKEND"] = os.environ.get("STORAGE_BACKEND", "sqlite")
     app.config["CONTACT_EMAIL"] = os.environ.get("CONTACT_EMAIL", "")
+    app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 0
+    app.jinja_env.auto_reload = True
+    app.config["TEMPLATES_AUTO_RELOAD"] = True
 
     if config:
         app.config.update(config)

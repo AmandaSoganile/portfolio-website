@@ -10,29 +10,5 @@
       "github": null,
       "live": null
     }
-  },
-  {
-    "id": "jamf-suite",
-    "name": "Jamf API Suite",
-    "description": "A collection of Bash and Python scripts that interact with the Jamf Pro API to manage computers, users, groups, and buildings via OAuth client credentials.",
-    "tech": ["Python", "Bash", "Jamf Pro API", "OAuth 2.0"],
-    "color": "#E9A6B3",
-    "status": "completed",
-    "links": {
-      "github": null,
-      "live": null
-    }
-  },
-  {
-    "id": "portfolio",
-    "name": "This Portfolio",
-    "description": "An API-first portfolio site built with Flask, deployed to AWS Lambda, with CI/CD via GitHub Actions. Because a portfolio about engineering should itself be engineered properly.",
-    "tech": ["Flask", "Python", "AWS Lambda", "GitHub Actions"],
-    "color": "#B8A0E8",
-    "status": "in-progress",
-    "links": {
-      "github": null,
-      "live": null
-    }
   }
 ]
