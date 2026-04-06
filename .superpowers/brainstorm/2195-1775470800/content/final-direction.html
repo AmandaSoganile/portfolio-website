@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amanda Soganile — Direction Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  :root {
+    --bg: #FAF8F4;
+    --bg2: #F2EFE9;
+    --text: #1A1008;
+    --muted: #6B5A48;
+    --accent: #C05A20;
+    --accent2: #E8A070;
+    --tag-bg: #F0E8DF;
+    --tag-text: #8A3A10;
+    --card-bg: #FFFFFF;
+    --border: rgba(192,90,32,0.15);
+  }
+
+  [data-theme="dark"] {
+    --bg: #100C08;
+    --bg2: #1A1410;
+    --text: #F5EEE6;
+    --muted: #9A8878;
+    --accent: #E07030;
+    --accent2: #C05A20;
+    --tag-bg: #2A1A0E;
+    --tag-text: #E8A070;
+    --card-bg: #1A1410;
+    --border: rgba(224,112,48,0.2);
+  }
+
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); transition: background 0.4s, color 0.4s; }
+
+  /* NAV */
+  nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 48px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg); z-index: 100; }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 900; color: var(--text); letter-spacing: -0.02em; }
+  .nav-links { display: flex; gap: 32px; align-items: center; }
+  .nav-links a { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-cta { background: var(--accent); color: white; padding: 8px 20px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; cursor: pointer; border: none; transition: transform 0.2s; }
+  .nav-cta:hover { transform: translateY(-2px); }
+  .theme-toggle { background: none; border: 1px solid var(--border); color: var(--muted); padding: 6px 14px; border-radius: 50px; font-size: 0.72rem; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+
+  /* HERO */
+  #hero { min-height: 100vh; display: flex; align-items: center; padding: 80px 48px; position: relative; overflow: hidden; }
+  .ghost-text { position: absolute; font-family: 'Playfair Display', serif; font-size: 22vw; font-weight: 900; color: rgba(192,90,32,0.05); top: 50%; left: 50%; transform: translate(-50%,-50%); white-space: nowrap; pointer-events: none; line-height: 1; user-select: none; }
+  .hero-inner { max-width: 1100px; margin: 0 auto; width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 60px; position: relative; z-index: 2; }
+  .hero-text { flex: 1; }
+  .hero-eyebrow { font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
+  .hero-name { font-family: 'Playfair Display', serif; font-size: clamp(3.5rem, 7vw, 6rem); font-weight: 900; line-height: 1; color: var(--text); margin-bottom: 4px; }
+  .hero-name-accent { font-family: 'Playfair Display', serif; font-size: clamp(3.5rem, 7vw, 6rem); font-weight: 900; line-height: 1; color: var(--accent); font-style: italic; margin-bottom: 28px; }
+  .hero-rule { width: 48px; height: 3px; background: var(--accent); margin-bottom: 24px; border-radius: 2px; }
+  .hero-bio { font-size: 1rem; line-height: 1.8; color: var(--muted); max-width: 420px; margin-bottom: 32px; }
+  .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 36px; }
+  .tag { background: var(--tag-bg); color: var(--tag-text); font-size: 0.72rem; padding: 5px 14px; border-radius: 20px; font-weight: 500; }
+  .hero-ctas { display: flex; gap: 12px; }
+  .btn-primary { background: var(--accent); color: white; padding: 12px 28px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: transform 0.2s, box-shadow 0.2s; }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(192,90,32,0.3); }
+  .btn-ghost { background: none; border: 1.5px solid var(--border); color: var(--text); padding: 12px 28px; border-radius: 50px; font-size: 0.85rem; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: border-color 0.2s, color 0.2s; }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* PHOTO FRAME */
+  .hero-photo { flex-shrink: 0; position: relative; }
+  .photo-frame { width: 280px; height: 360px; background: linear-gradient(150deg, var(--accent) 0%, var(--accent2) 100%); border-radius: 160px 160px 120px 120px; display: flex; align-items: flex-end; justify-content: center; overflow: hidden; box-shadow: 0 30px 80px rgba(192,90,32,0.25); animation: floatY 5s ease-in-out infinite; }
+  @keyframes floatY { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+  .photo-emoji { font-size: 8rem; line-height: 1; }
+  .photo-badge { position: absolute; bottom: 20px; left: -24px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 8px 14px; font-size: 0.68rem; color: var(--text); box-shadow: 0 4px 20px rgba(0,0,0,0.08); white-space: nowrap; }
+  .photo-badge span { color: var(--accent); font-weight: 700; }
+  .deco-ring { position: absolute; top: -10px; right: -10px; width: 60px; height: 60px; border-radius: 50%; border: 2px dashed var(--accent2); opacity: 0.6; animation: spin 12s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* SECTION SHARED */
+  section { padding: 100px 48px; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-label { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; color: var(--text); line-height: 1.1; margin-bottom: 48px; }
+  .section-title em { color: var(--accent); font-style: italic; }
+
+  /* TIMELINE */
+  .timeline { display: flex; flex-direction: column; gap: 0; position: relative; }
+  .timeline::before { content:''; position: absolute; left: 64px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--accent), transparent); }
+  .tl-item { display: flex; gap: 32px; align-items: flex-start; padding-bottom: 48px; position: relative; }
+  .tl-year { flex-shrink: 0; width: 64px; text-align: right; }
+  .tl-year-big { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 900; color: rgba(192,90,32,0.15); line-height: 1; }
+  .tl-year-small { font-size: 0.6rem; color: var(--muted); letter-spacing: 0.1em; }
+  .tl-dot { flex-shrink: 0; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); margin-top: 6px; box-shadow: 0 0 0 4px var(--bg), 0 0 0 6px var(--accent); }
+  .tl-content { flex: 1; }
+  .tl-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .tl-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.75; margin-bottom: 10px; }
+  .tl-chip { display: inline-block; background: var(--tag-bg); color: var(--tag-text); font-size: 0.65rem; padding: 3px 10px; border-radius: 12px; }
+
+  /* FUN FACTS */
+  #facts { background: var(--bg2); }
+  .facts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .fact-card { background: var(--card-bg); border-radius: 12px; padding: 20px; border: 1px solid var(--border); position: relative; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; }
+  .fact-card:hover { transform: translateY(-6px) rotate(1deg); box-shadow: 0 20px 50px rgba(192,90,32,0.15); }
+  .fact-card:nth-child(2) { transform: rotate(-1.5deg); }
+  .fact-card:nth-child(2):hover { transform: translateY(-6px) rotate(-0.5deg); }
+  .fact-card:nth-child(3) { transform: rotate(1deg); }
+  .fact-card:nth-child(3):hover { transform: translateY(-6px) rotate(2deg); }
+  .fact-text { font-size: 0.85rem; line-height: 1.7; color: var(--text); margin-bottom: 16px; font-style: italic; }
+  .fact-reactions { display: flex; gap: 10px; }
+  .reaction { display: flex; align-items: center; gap: 4px; font-size: 0.78rem; background: var(--tag-bg); padding: 4px 10px; border-radius: 20px; cursor: pointer; transition: transform 0.15s; }
+  .reaction:hover { transform: scale(1.2); }
+  .reaction span { font-size: 0.65rem; color: var(--muted); }
+
+  /* FOOTER NAV HINT */
+  .scroll-hint { text-align: center; padding: 40px; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">A.S</div>
+  <div class="nav-links">
+    <a href="#">About</a>
+    <a href="#">Projects</a>
+    <a href="#">Contact</a>
+    <button class="theme-toggle" onclick="toggleTheme()">◐ Dark</button>
+    <button class="nav-cta">Say hi ✦</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="ghost-text">AS</div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-eyebrow">✦ Integration Engineering Intern</div>
+      <div class="hero-name">Amanda</div>
+      <div class="hero-name-accent">Soganile.</div>
+      <div class="hero-rule"></div>
+      <p class="hero-bio">Equal parts curious and slightly chaotic — in a charming way, I'd argue. Still a work in progress, but at least an entertaining one.</p>
+      <div class="tags">
+        <span class="tag">Swift dev</span>
+        <span class="tag">pineapple enjoyer 🍕</span>
+        <span class="tag">MJ stan forever</span>
+        <span class="tag">paragliding dreamer</span>
+        <span class="tag">slightly chaotic</span>
+      </div>
+      <div class="hero-ctas">
+        <button class="btn-primary">View my work</button>
+        <button class="btn-ghost">Get in touch</button>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <div class="deco-ring"></div>
+      <div class="photo-frame">
+        <div class="photo-emoji">🧍‍♀️</div>
+      </div>
+      <div class="photo-badge"><span>✦</span> Currently learning AWS</div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline" style="background: var(--bg);">
+  <div class="section-inner">
+    <div class="section-label">The journey</div>
+    <h2 class="section-title">How I got <em>here.</em></h2>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-year"><div class="tl-year-big">05</div><div class="tl-year-small">2005</div></div>
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-title">Born, Bulawayo</div>
+          <div class="tl-desc">Arrived with zero plan. Turns out that's a recurring theme.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year"><div class="tl-year-big">24</div><div class="tl-year-small">2024</div></div>
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-title">Built FarmCare</div>
+          <div class="tl-desc">First real app. Helped Zimbabwean farmers manage livestock without the paperwork. Swift. iOS. Proud of it.</div>
+          <span class="tl-chip">Swift · iOS</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year"><div class="tl-year-big">26</div><div class="tl-year-small">2026</div></div>
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-title">Integration Engineering Intern</div>
+          <div class="tl-desc">Learning everything. Figuring out nothing. Somehow thriving.</div>
+          <span class="tl-chip" style="background:#DFF0EB;color:#2E7A63">In progress ✦</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FUN FACTS -->
+<section id="facts">
+  <div class="section-inner">
+    <div class="section-label">Fun facts</div>
+    <h2 class="section-title">Things about me that <em>nobody asked for.</em></h2>
+    <div class="facts-grid">
+      <div class="fact-card">
+        <p class="fact-text">"I still hate vegetables and I'm almost 21 years old."</p>
+        <div class="fact-reactions">
+          <div class="reaction">😂 <span>24</span></div>
+          <div class="reaction">💀 <span>11</span></div>
+        </div>
+      </div>
+      <div class="fact-card">
+        <p class="fact-text">"Pineapple absolutely belongs on pizza and I will die on this hill."</p>
+        <div class="fact-reactions">
+          <div class="reaction">🫶 <span>31</span></div>
+          <div class="reaction">💀 <span>8</span></div>
+        </div>
+      </div>
+      <div class="fact-card">
+        <p class="fact-text">"MJ has been my top artist 3 years running. Not sorry."</p>
+        <div class="fact-reactions">
+          <div class="reaction">🫶 <span>44</span></div>
+          <div class="reaction">😂 <span>6</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="scroll-hint">scroll to explore ↓</div>
+
+<script>
+function toggleTheme() {
+  const html = document.documentElement;
+  const btn = document.querySelector('.theme-toggle');
+  if (html.getAttribute('data-theme') === 'dark') {
+    html.removeAttribute('data-theme');
+    btn.textContent = '◐ Dark';
+  } else {
+    html.setAttribute('data-theme', 'dark');
+    btn.textContent = '◑ Light';
+  }
+}
+</script>
+</body>
+</html>

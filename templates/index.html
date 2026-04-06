@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Amanda Soganile</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/static/css/style.css?v=13">
+  <link rel="stylesheet" href="/static/css/style.css?v=21">
 </head>
 <body>
 
@@ -17,6 +17,7 @@
       <a href="#about">About</a>
       <a href="#journey">Journey</a>
       <a href="#fun-facts">Fun Facts</a>
+      <a href="#game">Play</a>
       <a href="#projects">Projects</a>
       <a href="#books">Books</a>
       <a href="#songs">Songs</a>
@@ -127,12 +128,12 @@
 
   <!-- FUN FACTS -->
   <section id="fun-facts">
-    <div class="ff-letters-wrap" aria-hidden="true">
-      <span class="ff-l" id="ff-l-0">F</span>
-      <span class="ff-l" id="ff-l-1">U</span>
-      <span class="ff-l" id="ff-l-2">N</span>
+    <div class="section-inner">
+      <div class="s-label">Fun facts</div>
+      <h2 class="s-title ff-title">Things you <em>didn&#39;t ask to know.</em></h2>
+      <p class="ff-hint">Scratch to reveal &#8594; <span id="ff-count">0</span> / <span id="ff-total">0</span> revealed</p>
+      <div class="ff-cards" id="facts-grid"></div>
     </div>
-    <div class="ff-cards" id="facts-grid"></div>
   </section>
 
   <!-- PROJECTS — populated by JS -->
@@ -194,6 +195,15 @@
     </div>
   </section>
 
+  <!-- GAME -->
+  <section id="game">
+    <div class="section-inner">
+      <div class="s-label">Mini game</div>
+      <h2 class="s-title game-title">Build <em>my day.</em></h2>
+      <div class="game-wrap" id="game-wrap"></div>
+    </div>
+  </section>
+
   <!-- CONTACT -->
   <section id="contact">
     <div class="section-inner">
@@ -243,6 +253,6 @@
   <!-- TOAST -->
   <div id="toast"></div>
 
-  <script src="/static/js/app.js?v=13"></script>
+  <script src="/static/js/app.js?v=21"></script>
 </body>
 </html>

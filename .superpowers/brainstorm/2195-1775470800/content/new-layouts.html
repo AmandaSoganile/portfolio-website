@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>New layouts</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: 'DM Sans', sans-serif; background: #111; color: #fff; }
+
+h1 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #fff; padding: 24px 32px 0; }
+.subtitle { font-size: 0.82rem; color: #888; padding: 6px 32px 24px; }
+
+.layouts { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding: 0 32px 40px; }
+.mockup-wrap { border-radius: 16px; overflow: hidden; border: 1px solid #2A2A2A; }
+.mockup-label { background: #1A1A1A; padding: 10px 16px; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: #888; border-bottom: 1px solid #2A2A2A; }
+.preview { position: relative; overflow: hidden; }
+
+/* ---- LAYOUT A: SPLIT SCREEN ---- */
+.split-preview { display: flex; height: 380px; }
+.split-left { width: 42%; background: #0A0A0A; display: flex; flex-direction: column; justify-content: flex-end; padding: 28px 24px; position: relative; border-right: 1px solid #222; overflow: hidden; }
+.split-left-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 30%, rgba(100,160,220,0.12), transparent 60%); }
+.split-photo { width: 140px; height: 180px; background: linear-gradient(150deg, #1A4FBE 0%, #6090E0 100%); border-radius: 80px 80px 60px 60px; display: flex; align-items: flex-end; justify-content: center; overflow: hidden; margin: 0 auto 16px; position: relative; z-index: 2; box-shadow: 0 20px 50px rgba(26,79,190,0.3); }
+.split-photo span { font-size: 4rem; line-height: 1; }
+.split-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 900; color: #fff; text-align: center; position: relative; z-index: 2; }
+.split-name em { color: #6090E0; font-style: italic; display: block; }
+.split-right { flex: 1; background: #FAF8F4; display: flex; flex-direction: column; justify-content: center; padding: 28px 24px; overflow-y: auto; }
+.sr-label { font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; color: #1A4FBE; margin-bottom: 8px; }
+.sr-heading { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 900; color: #0A0A1A; line-height: 1.2; margin-bottom: 12px; }
+.sr-body { font-size: 0.72rem; line-height: 1.8; color: #666; margin-bottom: 16px; }
+.sr-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+.sr-tag { background: #E0E8FF; color: #1A3A9E; font-size: 0.6rem; padding: 3px 10px; border-radius: 20px; }
+.sr-btn { background: #0A0A1A; color: white; padding: 8px 20px; border-radius: 50px; font-size: 0.7rem; font-weight: 600; display: inline-block; }
+
+/* ---- LAYOUT B: FULL SCREEN SNAP ---- */
+.snap-preview { height: 380px; background: #060606; position: relative; overflow: hidden; }
+.snap-scene { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 28px; }
+.snap-bg-text { position: absolute; font-family: 'Playfair Display', serif; font-size: 18vw; font-weight: 900; color: rgba(255,255,255,0.03); top: 50%; left: 50%; transform: translate(-50%,-50%); white-space: nowrap; pointer-events: none; }
+.snap-eyebrow { font-size: 0.55rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 16px; }
+.snap-name { font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 900; color: #fff; line-height: 1; text-align: center; }
+.snap-name em { color: #6090E0; font-style: italic; }
+.snap-line { width: 1px; height: 50px; background: linear-gradient(to bottom, rgba(96,144,224,0.6), transparent); margin: 20px auto 0; }
+.snap-nav { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 8px; }
+.snap-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.2); }
+.snap-dot.active { background: #6090E0; }
+.snap-scroll { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.2); }
+
+.desc { background: #1A1A1A; padding: 14px 18px; font-size: 0.76rem; line-height: 1.7; color: #888; border-top: 1px solid #2A2A2A; }
+.desc strong { color: #ddd; }
+</style>
+</head>
+<body>
+
+<h1>Two completely different layouts</h1>
+<p class="subtitle">Different structure, different feel. Which direction?</p>
+
+<div class="layouts">
+
+  <!-- LAYOUT A -->
+  <div class="mockup-wrap">
+    <div class="mockup-label">A — Split Screen</div>
+    <div class="preview">
+      <div class="split-preview">
+        <div class="split-left">
+          <div class="split-left-bg"></div>
+          <div class="split-photo"><span>🧍‍♀️</span></div>
+          <div class="split-name">Amanda<em>Soganile.</em></div>
+        </div>
+        <div class="split-right">
+          <div class="sr-label">✦ Who I am</div>
+          <div class="sr-heading">Equal parts curious<br>and slightly chaotic.</div>
+          <div class="sr-body">Born in Bulawayo. Currently on a mild adventure in Victoria Falls. Still a work in progress — but at least an entertaining one.</div>
+          <div class="sr-tags">
+            <span class="sr-tag">Swift dev</span>
+            <span class="sr-tag">MJ stan 🎵</span>
+            <span class="sr-tag">pineapple 🍕</span>
+          </div>
+          <div class="sr-btn">View my work →</div>
+        </div>
+      </div>
+    </div>
+    <div class="desc"><strong>How it works:</strong> Your photo and name are pinned on the left — always visible. As you scroll, the right side changes: About → Journey → Projects → Contact. You're always present on screen.</div>
+  </div>
+
+  <!-- LAYOUT B -->
+  <div class="mockup-wrap">
+    <div class="mockup-label">B — Full Screen Immersive</div>
+    <div class="preview">
+      <div class="snap-preview">
+        <div class="snap-bg-text">AMANDA</div>
+        <div class="snap-scene">
+          <div class="snap-eyebrow">— integration engineer · builder · storyteller —</div>
+          <div class="snap-name">Amanda<br><em>Soganile.</em></div>
+          <div class="snap-line"></div>
+        </div>
+        <div class="snap-nav">
+          <div class="snap-dot active"></div>
+          <div class="snap-dot"></div>
+          <div class="snap-dot"></div>
+          <div class="snap-dot"></div>
+        </div>
+        <div class="snap-scroll">scroll ↓</div>
+      </div>
+    </div>
+    <div class="desc"><strong>How it works:</strong> Each section fills the entire screen. You scroll (or snap) between them — hero, about, journey, projects, contact. Each feels like its own world. Very immersive, very not-a-template.</div>
+  </div>
+
+</div>
+
+</body>
+</html>

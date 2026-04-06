@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Accent colour</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,900;1,700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: 'DM Sans', sans-serif; background: #0A0A0A; color: #fff; padding: 28px; }
+h2 { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 6px; }
+p { font-size: 0.8rem; color: #888; margin-bottom: 24px; }
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.card { border-radius: 14px; overflow: hidden; border: 1px solid #1E1E1E; cursor: pointer; transition: transform 0.2s, border-color 0.2s; }
+.card:hover { transform: translateY(-4px); border-color: #444; }
+.preview { background: #060606; height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 20px; }
+.bg-ghost { position: absolute; font-family: 'Playfair Display', serif; font-size: 8rem; font-weight: 900; top: 50%; left: 50%; transform: translate(-50%, -50%); white-space: nowrap; pointer-events: none; opacity: 0.04; }
+.eyebrow { font-size: 0.52rem; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 12px; opacity: 0.7; position: relative; z-index: 2; }
+.name { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; color: #fff; line-height: 1; text-align: center; position: relative; z-index: 2; }
+.name em { font-style: italic; display: block; }
+.line { width: 1px; height: 30px; margin: 14px auto 0; position: relative; z-index: 2; }
+.tag-row { display: flex; gap: 6px; margin-top: 12px; position: relative; z-index: 2; }
+.tag { font-size: 0.58rem; padding: 3px 10px; border-radius: 20px; }
+.label { background: #111; padding: 12px 16px; border-top: 1px solid #1E1E1E; }
+.label strong { font-size: 0.78rem; color: #eee; display: block; }
+.label span { font-size: 0.68rem; color: #666; }
+</style>
+</head>
+<body>
+<h2>Pick your accent</h2>
+<p>Dark base stays the same. Just pick the colour that speaks to you.</p>
+
+<div class="grid">
+
+  <div class="card">
+    <div class="preview">
+      <div class="bg-ghost" style="color:#4A90E2">AS</div>
+      <div class="eyebrow" style="color:#4A90E2">✦ Integration Engineer</div>
+      <div class="name">Amanda<em style="color:#4A90E2">Soganile.</em></div>
+      <div class="line" style="background:linear-gradient(to bottom,rgba(74,144,226,0.6),transparent)"></div>
+      <div class="tag-row">
+        <span class="tag" style="background:rgba(74,144,226,0.15);color:#4A90E2">Swift dev</span>
+        <span class="tag" style="background:rgba(74,144,226,0.15);color:#4A90E2">MJ stan</span>
+      </div>
+    </div>
+    <div class="label"><strong>A — Electric Blue</strong><span>Bold, clean, confident</span></div>
+  </div>
+
+  <div class="card">
+    <div class="preview">
+      <div class="bg-ghost" style="color:#50C878">AS</div>
+      <div class="eyebrow" style="color:#50C878">✦ Integration Engineer</div>
+      <div class="name">Amanda<em style="color:#50C878">Soganile.</em></div>
+      <div class="line" style="background:linear-gradient(to bottom,rgba(80,200,120,0.6),transparent)"></div>
+      <div class="tag-row">
+        <span class="tag" style="background:rgba(80,200,120,0.15);color:#50C878">Swift dev</span>
+        <span class="tag" style="background:rgba(80,200,120,0.15);color:#50C878">MJ stan</span>
+      </div>
+    </div>
+    <div class="label"><strong>B — Emerald</strong><span>Fresh, alive, unexpected</span></div>
+  </div>
+
+  <div class="card">
+    <div class="preview">
+      <div class="bg-ghost" style="color:#E8C840">AS</div>
+      <div class="eyebrow" style="color:#E8C840">✦ Integration Engineer</div>
+      <div class="name">Amanda<em style="color:#E8C840">Soganile.</em></div>
+      <div class="line" style="background:linear-gradient(to bottom,rgba(232,200,64,0.6),transparent)"></div>
+      <div class="tag-row">
+        <span class="tag" style="background:rgba(232,200,64,0.15);color:#E8C840">Swift dev</span>
+        <span class="tag" style="background:rgba(232,200,64,0.15);color:#E8C840">MJ stan</span>
+      </div>
+    </div>
+    <div class="label"><strong>C — Gold</strong><span>Warm, editorial, luxe</span></div>
+  </div>
+
+  <div class="card">
+    <div class="preview">
+      <div class="bg-ghost" style="color:#C084FC">AS</div>
+      <div class="eyebrow" style="color:#C084FC">✦ Integration Engineer</div>
+      <div class="name">Amanda<em style="color:#C084FC">Soganile.</em></div>
+      <div class="line" style="background:linear-gradient(to bottom,rgba(192,132,252,0.6),transparent)"></div>
+      <div class="tag-row">
+        <span class="tag" style="background:rgba(192,132,252,0.15);color:#C084FC">Swift dev</span>
+        <span class="tag" style="background:rgba(192,132,252,0.15);color:#C084FC">MJ stan</span>
+      </div>
+    </div>
+    <div class="label"><strong>D — Violet</strong><span>Dreamy, creative, distinct</span></div>
+  </div>
+
+  <div class="card">
+    <div class="preview">
+      <div class="bg-ghost" style="color:#FF6B6B">AS</div>
+      <div class="eyebrow" style="color:#FF6B6B">✦ Integration Engineer</div>
+      <div class="name">Amanda<em style="color:#FF6B6B">Soganile.</em></div>
+      <div class="line" style="background:linear-gradient(to bottom,rgba(255,107,107,0.6),transparent)"></div>
+      <div class="tag-row">
+        <span class="tag" style="background:rgba(255,107,107,0.15);color:#FF6B6B">Swift dev</span>
+        <span class="tag" style="background:rgba(255,107,107,0.15);color:#FF6B6B">MJ stan</span>
+      </div>
+    </div>
+    <div class="label"><strong>E — Coral Red</strong><span>Energetic, fearless, punchy</span></div>
+  </div>
+
+  <div class="card">
+    <div class="preview">
+      <div class="bg-ghost" style="color:#00D4AA">AS</div>
+      <div class="eyebrow" style="color:#00D4AA">✦ Integration Engineer</div>
+      <div class="name">Amanda<em style="color:#00D4AA">Soganile.</em></div>
+      <div class="line" style="background:linear-gradient(to bottom,rgba(0,212,170,0.6),transparent)"></div>
+      <div class="tag-row">
+        <span class="tag" style="background:rgba(0,212,170,0.15);color:#00D4AA">Swift dev</span>
+        <span class="tag" style="background:rgba(0,212,170,0.15);color:#00D4AA">MJ stan</span>
+      </div>
+    </div>
+    <div class="label"><strong>F — Mint</strong><span>Cool, fresh, techy</span></div>
+  </div>
+
+</div>
+</body>
+</html>
