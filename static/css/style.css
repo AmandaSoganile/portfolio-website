@@ -1729,3 +1729,153 @@ section {
   .landing-grid { grid-template-columns: 1fr; padding: 0 20px; }
   .landing-hero { padding: 80px 24px 40px; }
 }
+
+/* ============================================================
+   LANDING PAGE — redesign
+   ============================================================ */
+#landing {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 40px 60px;
+  gap: 60px;
+}
+
+.landing-wrap {
+  display: flex;
+  align-items: center;
+  gap: 72px;
+  max-width: 900px;
+  width: 100%;
+}
+
+.landing-photo {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.photo-frame-lg {
+  width: 220px;
+  height: 220px;
+  font-size: 5rem;
+}
+
+.landing-text {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.landing-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 6vw, 4.4rem);
+  font-weight: 900;
+  line-height: 1.05;
+  color: var(--text);
+}
+
+.landing-name em {
+  color: var(--accent2);
+  font-style: italic;
+}
+
+.landing-bio {
+  font-size: 0.92rem;
+  color: var(--muted);
+  line-height: 1.65;
+  max-width: 420px;
+}
+
+.landing-socials {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.landing-begin {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 12px 28px;
+  background: var(--grad);
+  color: #fff;
+  border-radius: 100px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.2s, transform 0.2s;
+  align-self: flex-start;
+}
+
+.landing-begin:hover { opacity: 0.88; transform: translateX(3px); }
+
+.landing-sections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 4px;
+  align-items: center;
+  justify-content: center;
+}
+
+.landing-sections a {
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+}
+
+.landing-sections a:hover {
+  color: var(--text);
+  background: var(--bg2);
+}
+
+.landing-sep { color: var(--border); font-size: 0.8rem; }
+
+@media (max-width: 700px) {
+  .landing-wrap { flex-direction: column; gap: 36px; text-align: center; }
+  .landing-begin { align-self: center; }
+  .landing-bio { max-width: 100%; }
+  .landing-socials { justify-content: center; }
+  .photo-frame-lg { width: 160px; height: 160px; font-size: 3.8rem; }
+}
+
+/* ============================================================
+   PAGE NEXT NAVIGATION
+   ============================================================ */
+.page-next {
+  display: flex;
+  justify-content: flex-end;
+  padding: 40px 60px;
+}
+
+.page-next-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  padding: 10px 20px;
+  border-radius: 100px;
+  transition: color 0.18s, border-color 0.18s, transform 0.18s;
+}
+
+.page-next-link:hover {
+  color: var(--text);
+  border-color: var(--accent);
+  transform: translateX(4px);
+}
+
+.page-next-arrow { font-size: 1rem; }
+
+@media (max-width: 600px) {
+  .page-next { padding: 24px 24px; }
+}

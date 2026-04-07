@@ -12,7 +12,7 @@
   <meta name="twitter:card" content="summary">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/static/css/style.css?v=23">
+  <link rel="stylesheet" href="/static/css/style.css?v=24">
 </head>
 <body>
 
@@ -22,17 +22,25 @@
       <a href="/about">About</a>
       <a href="/journey">Journey</a>
       <a href="/fun-facts">Fun Facts</a>
-      <a href="/play">Play</a>
       <a href="/projects">Projects</a>
       <a href="/books">Books</a>
       <a href="/songs">Songs</a>
+      <a href="/play">Play</a>
       <a href="/contact">Contact</a>
       <button id="theme-btn" onclick="toggleTheme()">&#9728; Light</button>
-      <a href="/contact" class="cta-btn">Say hi &#10022;</a>
     </div>
   </nav>
 
   {% block content %}{% endblock %}
+
+  {% block page_nav %}
+  <div class="page-next" id="page-next" style="display:none">
+    <a class="page-next-link" id="page-next-link" href="/">
+      <span class="page-next-label" id="page-next-label">Next</span>
+      <span class="page-next-arrow">&rarr;</span>
+    </a>
+  </div>
+  {% endblock %}
 
   <footer class="site-footer">
     <span>Built by Amanda Soganile</span>
@@ -42,6 +50,6 @@
   {% block modals %}{% endblock %}
 
   <div id="toast"></div>
-  <script src="/static/js/app.js?v=23"></script>
+  <script src="/static/js/app.js?v=24"></script>
 </body>
 </html>

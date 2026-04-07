@@ -84,7 +84,12 @@ async function init() {
     needsSongs    ? api('/songs').catch(() => ({ mine: [], community: [] }))     : Promise.resolve({ mine: [], community: [] }),
   ]);
 
-  if (about) { initHero(about); initAbout(about); }
+  if (about) {
+    initHero(about);
+    initAbout(about);
+    const landingBio = document.getElementById('landing-bio');
+    if (landingBio) landingBio.textContent = about.bio;
+  }
   if (needsFacts)    initFunFacts(facts);
   if (needsProjects) initProjects(projects);
   if (needsBooks)  { initBooks(books); initBooksForm(); }
@@ -92,6 +97,7 @@ async function init() {
 
   initGame();
   initContact();
+  initPageNext();
 }
 
 /* ============================================================
@@ -576,6 +582,35 @@ function renderTTResult() {
       <button class="game-replay-btn" onclick="startTT()">Play again &rarr;</button>
     </div>
   `;
+}
+
+/* ============================================================
+   PAGE NEXT NAVIGATION
+   ============================================================ */
+const PAGE_SEQUENCE = [
+  { path: '/',          label: 'About me' },
+  { path: '/about',     label: 'The Journey' },
+  { path: '/journey',   label: 'Fun Facts' },
+  { path: '/fun-facts', label: 'Projects' },
+  { path: '/projects',  label: 'Books' },
+  { path: '/books',     label: 'Songs' },
+  { path: '/songs',     label: 'Play' },
+  { path: '/play',      label: 'Contact' },
+  { path: '/contact',   label: null },
+];
+
+function initPageNext() {
+  const current = window.location.pathname.replace(/\/$/, '') || '/';
+  const idx = PAGE_SEQUENCE.findIndex(p => p.path === current || (current === '' && p.path === '/'));
+  if (idx === -1 || idx === PAGE_SEQUENCE.length - 1) return;
+  const next = PAGE_SEQUENCE[idx + 1];
+  const wrap = document.getElementById('page-next');
+  const link = document.getElementById('page-next-link');
+  const lbl  = document.getElementById('page-next-label');
+  if (!wrap || !link || !lbl) return;
+  lbl.textContent = 'Next: ' + next.label;
+  link.href = PAGE_SEQUENCE[idx + 1].path;
+  wrap.style.display = 'flex';
 }
 
 document.addEventListener('DOMContentLoaded', init);
