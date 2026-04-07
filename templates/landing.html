@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% block title %}Amanda Soganile{% endblock %}
 
+{% block head_extra %}
+  <link rel="preload" as="image" href="https://amanda-portfolio-assets.s3.amazonaws.com/amanda.jpg">
+{% endblock %}
+
 {% block page_nav %}{% endblock %}
 
 {% block content %}
@@ -25,7 +29,11 @@
       <div class="landing-photo">
         <div class="photo-tape"></div>
         <div class="photo-frame">
-          <img src="https://amanda-portfolio-assets.s3.amazonaws.com/amanda.jpg" alt="Amanda Soganile" style="width:100%;height:100%;object-fit:cover;object-position:top center;">
+          <img src="https://amanda-portfolio-assets.s3.amazonaws.com/amanda.jpg"
+               alt="Amanda Soganile"
+               fetchpriority="high"
+               width="600" height="800"
+               style="width:100%;height:100%;object-fit:cover;object-position:top center;">
         </div>
         <div class="sticky-note">hi, that&#39;s me</div>
       </div>

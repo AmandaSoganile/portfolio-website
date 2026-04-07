@@ -196,6 +196,8 @@ section {
 
 .nav-links a:hover { color: var(--accent); }
 
+[data-theme="dark"] .nav-links a { color: #9A91BB; }
+
 #theme-btn {
   background: var(--card);
   border: 1px solid var(--border);

@@ -114,7 +114,9 @@ async function init() {
    STUBS — sections not yet implemented
    ============================================================ */
 function initAbout(about) {
-  document.getElementById('about-bio').textContent     = about.bio;
+  const bio = document.getElementById('about-bio');
+  if (!bio) return;
+  bio.textContent = about.bio;
   document.getElementById('about-meaning').textContent = about.name_meaning;
   document.getElementById('about-goal').textContent    = '"' + about.life_goal + '"';
 

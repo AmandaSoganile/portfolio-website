@@ -53,7 +53,7 @@ def create_app(config=None):
     app.config["DATABASE"] = "/tmp/portfolio.db" if os.environ.get("AWS_LAMBDA_FUNCTION_NAME") else str(BASE / "portfolio.db")
     app.config["STORAGE_BACKEND"] = os.environ.get("STORAGE_BACKEND", "sqlite")
     app.config["CONTACT_EMAIL"] = os.environ.get("CONTACT_EMAIL", "soganileamanda@gmail.com")
-    app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 0
+    app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 31536000  # 1 year — cache-busted via ?v=N
     app.jinja_env.auto_reload = True
     app.config["TEMPLATES_AUTO_RELOAD"] = True
 
