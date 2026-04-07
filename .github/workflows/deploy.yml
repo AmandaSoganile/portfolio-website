@@ -38,3 +38,6 @@ jobs:
           aws lambda update-function-code \
             --function-name amanda-portfolio \
             --zip-file fileb://portfolio.zip
+          aws lambda update-function-configuration \
+            --function-name amanda-portfolio \
+            --environment "Variables={GIT_SHA=${{ github.sha }},DEPLOY_TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)}"

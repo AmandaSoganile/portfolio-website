@@ -575,3 +575,12 @@ function renderTTResult() {
 }
 
 document.addEventListener('DOMContentLoaded', init);
+
+/* ============================================================
+   EASTER EGG
+   ============================================================ */
+console.log(
+  '%c✦ Hey, you found the console. %c\nBuilt with Flask + vanilla JS, deployed on AWS Lambda.\nSee the source: https://github.com/AmandaSoganile/portfolio-website',
+  'color:#7B52A0;font-size:14px;font-weight:700;',
+  'color:#aaa;font-size:12px;'
+);

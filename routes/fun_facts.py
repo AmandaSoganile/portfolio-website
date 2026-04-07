@@ -14,6 +14,13 @@ def _facts_with_reactions():
     return facts
 
 
+@bp.route("/fun-fact")
+def fun_fact_random():
+    import random
+    facts = _facts_with_reactions()
+    return jsonify(random.choice(facts)) if facts else ("", 404)
+
+
 @bp.route("/fun-fact/all")
 def fun_facts_all():
     return jsonify(_facts_with_reactions())

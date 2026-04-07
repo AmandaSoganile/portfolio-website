@@ -1595,3 +1595,27 @@ section {
 .tt-res-q { font-size: 0.82rem; font-weight: 600; color: var(--text); margin-bottom: 3px; }
 .tt-res-detail { font-size: 0.75rem; color: var(--muted); margin-bottom: 4px; }
 .tt-res-why { font-size: 0.75rem; color: var(--muted); font-style: italic; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.site-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28px 40px;
+  border-top: 1px solid var(--border);
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.footer-source {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-source:hover { color: var(--accent); }
+
+@media (max-width: 600px) {
+  .site-footer { padding: 20px 24px; flex-direction: column; gap: 8px; text-align: center; }
+}
