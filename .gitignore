@@ -38,3 +38,17 @@ _source/
 *.key
 *.pdf
 *.log
+
+# Lambda build artifacts
+package/
+portfolio.zip
+*.zip
+
+# Local database
+portfolio.db
+
+# Tool artifacts
+.superpowers/
+docs/superpowers/
+.pytest_cache/
+.claude/

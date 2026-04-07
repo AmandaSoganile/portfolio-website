@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Amanda Soganile{% endblock %}
+
+{% block page_nav %}{% endblock %}
+
+{% block content %}
+  <section id="landing">
+    <div class="landing-wrap">
+
+      <div class="landing-text">
+        <div class="eyebrow" id="hero-role"></div>
+        <h1 class="landing-name">
+          <span id="hero-firstname"></span><br>
+          <em id="hero-lastname"></em>
+        </h1>
+        <div class="landing-divider"></div>
+        <div class="landing-socials">
+          <a href="https://github.com/AmandaSoganile" class="social-link" target="_blank" rel="noopener">GitHub</a>
+          <span class="social-sep">&middot;</span>
+          <a href="https://www.linkedin.com/in/amanda-soganile-8237ba365" class="social-link" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+        <a href="/about" class="landing-begin">Explore &rarr;</a>
+      </div>
+
+      <div class="landing-photo">
+        <div class="photo-tape"></div>
+        <div class="photo-frame">
+          <img src="https://amanda-portfolio-assets.s3.amazonaws.com/amanda.jpg" alt="Amanda Soganile" style="width:100%;height:100%;object-fit:cover;object-position:top center;">
+        </div>
+        <div class="sticky-note">hi, that&#39;s me</div>
+      </div>
+
+    </div>
+  </section>
+{% endblock %}

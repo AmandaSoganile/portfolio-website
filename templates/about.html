@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}About — Amanda Soganile{% endblock %}
+
+{% block content %}
+  <section id="about">
+    <div class="section-inner">
+      <div class="s-label">About me</div>
+      <h2 class="s-title">The person <em>behind the code.</em></h2>
+      <div class="about-grid reveal">
+        <div class="about-left">
+          <p class="about-bio" id="about-bio"></p>
+          <p class="about-name-meaning" id="about-meaning"></p>
+        </div>
+        <div class="about-right">
+          <div class="about-block">
+            <div class="about-block-label">Things I love</div>
+            <div class="about-chips" id="about-loves"></div>
+          </div>
+          <div class="about-block">
+            <div class="about-block-label">Currently learning</div>
+            <div class="about-chips" id="about-learning"></div>
+          </div>
+          <div class="about-block">
+            <div class="about-block-label">Life goal</div>
+            <p class="about-goal" id="about-goal"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

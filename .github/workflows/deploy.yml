@@ -1,0 +1,45 @@
+name: Deploy to AWS Lambda
+
+on:
+  push:
+    branches:
+      - prod
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Build deployment package
+        run: |
+          pip install \
+            flask flask-cors mangum asgiref \
+            --target ./package --quiet
+          cd package && zip -r ../portfolio.zip . -x "*.pyc" -x "*/__pycache__/*" -q
+          cd ..
+          zip -r portfolio.zip routes/ store.py app.py templates/ static/ data/ \
+            -x "*.pyc" -q
+
+      - name: Deploy to Lambda
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: us-east-1
+        run: |
+          pip install awscli --quiet
+          aws lambda update-function-code \
+            --function-name amanda-portfolio \
+            --zip-file fileb://portfolio.zip
+          aws lambda wait function-updated \
+            --function-name amanda-portfolio
+          aws lambda update-function-configuration \
+            --function-name amanda-portfolio \
+            --environment "Variables={GIT_SHA=${{ github.sha }},DEPLOY_TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)}"

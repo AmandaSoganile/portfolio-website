@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Books — Amanda Soganile{% endblock %}
+
+{% block content %}
+  <section id="books">
+    <div class="section-inner">
+      <div class="s-label">Reading</div>
+      <h2 class="s-title">Books I&#39;ve read. <em>Add yours.</em></h2>
+      <p class="section-note">I recently started getting into self-help books — here are some of them.</p>
+      <div class="shelf-wrap">
+        <div class="shelf" id="books-shelf"></div>
+        <div class="shelf-plank"></div>
+      </div>
+      <div class="books-community-section">
+        <div class="books-community-label">Community recs</div>
+        <p class="books-community-note">Add a book you think I should read</p>
+        <div class="community-list" id="books-community"></div>
+        <form class="submit-form" id="books-form">
+          <input type="text" name="name" placeholder="Your name" required maxlength="60">
+          <input type="text" name="title" placeholder="Book title" required maxlength="120">
+          <button type="submit">Add &rarr;</button>
+        </form>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+
+{% block modals %}
+  <div id="book-modal" onclick="if(event.target===this)this.classList.remove('open')">
+    <div class="book-modal-inner">
+      <button class="book-modal-close" onclick="document.getElementById('book-modal').classList.remove('open')">&times;</button>
+      <img id="book-modal-cover" alt="Book cover">
+      <div class="book-modal-info">
+        <div class="book-modal-title" id="book-modal-title"></div>
+        <div class="book-modal-author" id="book-modal-author"></div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

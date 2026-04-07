@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Songs — Amanda Soganile{% endblock %}
+
+{% block content %}
+  <section id="songs">
+    <div class="section-inner">
+      <div class="s-label">Music</div>
+      <h2 class="s-title">What I&#39;m listening to. <em>Share yours.</em></h2>
+      <div class="songs-grid">
+        <div class="songs-mine-section">
+          <div class="songs-section-label">On my playlist</div>
+          <div class="songs-list" id="songs-mine"></div>
+        </div>
+        <div class="songs-community-section">
+          <div class="songs-section-label">Recommend a song</div>
+          <p class="songs-note">Drop a song that gets you into the zone — the kind that makes you build, create, and forget what time it is</p>
+          <div class="songs-community-list" id="songs-community"></div>
+          <form class="songs-form" id="songs-form">
+            <div class="songs-form-row">
+              <input type="text" name="name" placeholder="Your name" required maxlength="60">
+              <input type="text" name="artist" placeholder="Artist" maxlength="120">
+            </div>
+            <input type="text" name="title" placeholder="Song title" required maxlength="120">
+            <textarea name="note" placeholder="Why this song? (optional)" maxlength="300" rows="2"></textarea>
+            <button type="submit">Add to the list &rarr;</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

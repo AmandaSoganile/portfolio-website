@@ -1,0 +1,42 @@
+[
+  {
+    "category": "Languages",
+    "icon": "{ }",
+    "items": [
+      { "name": "Swift", "level": 3 },
+      { "name": "Python", "level": 2 },
+      { "name": "HTML & CSS", "level": 2 },
+      { "name": "JavaScript", "level": 1 },
+      { "name": "Bash", "level": 1 }
+    ]
+  },
+  {
+    "category": "Frameworks",
+    "icon": "⚡",
+    "items": [
+      { "name": "SwiftUI", "level": 3 },
+      { "name": "Flask", "level": 1 },
+      { "name": "Vanilla JS", "level": 1 }
+    ]
+  },
+  {
+    "category": "Cloud & DevOps",
+    "icon": "☁",
+    "items": [
+      { "name": "AWS Lambda", "level": 1 },
+      { "name": "API Gateway", "level": 1 },
+      { "name": "GitHub Actions", "level": 1 },
+      { "name": "CI/CD", "level": 1 }
+    ]
+  },
+  {
+    "category": "Tools",
+    "icon": "◈",
+    "items": [
+      { "name": "Postman", "level": 1 },
+      { "name": "Git & GitHub", "level": 2 },
+      { "name": "SQLite", "level": 2 },
+      { "name": "Xcode", "level": 2 }
+    ]
+  }
+]
