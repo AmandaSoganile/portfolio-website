@@ -1,18 +1,44 @@
+import os
 from flask import Blueprint, jsonify, request, current_app
 
 bp = Blueprint("contact", __name__)
 
 
+def _send_via_ses(to: str, name: str, sender_email: str, message: str) -> None:
+    import boto3
+    client = boto3.client("ses", region_name="us-east-1")
+    client.send_email(
+        Source=to,
+        Destination={"ToAddresses": [to]},
+        Message={
+            "Subject": {"Data": f"Portfolio message from {name}"},
+            "Body": {
+                "Text": {
+                    "Data": (
+                        f"Name: {name}\n"
+                        f"Email: {sender_email}\n\n"
+                        f"{message}"
+                    )
+                }
+            },
+        },
+    )
+
+
 def _send_notification(name: str, slack_email: str, message: str) -> None:
     contact_email = current_app.config.get("CONTACT_EMAIL", "")
-    if contact_email:
-        # TODO Phase 2: send via AWS SES
-        print(f"[contact] would email {contact_email}")
     print(
         f"[contact] new message\n"
         f"  from: {name} ({slack_email})\n"
         f"  message: {message}"
     )
+    if not contact_email:
+        return
+    try:
+        _send_via_ses(contact_email, name, slack_email, message)
+        print(f"[contact] email sent to {contact_email}")
+    except Exception as exc:
+        print(f"[contact] SES send failed: {exc}")
 
 
 @bp.route("/contact", methods=["POST"])

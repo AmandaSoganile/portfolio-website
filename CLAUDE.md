@@ -65,9 +65,19 @@ Current version: `v=26`. Bump in `templates/base.html` whenever CSS or JS change
 - `initHero()` is null-safe — hero elements don't exist on all pages
 - PAGE_SEQUENCE in app.js drives the "Next: X →" pill navigation
 
+## Email (SES)
+
+Contact form POSTs to `/api/contact`. On Lambda, `_send_via_ses()` in `routes/contact.py` sends via SES.
+- Sender and recipient: `CONTACT_EMAIL` env var (default: soganileamanda@gmail.com)
+- SES region: us-east-1
+- Lambda IAM role needs `ses:SendEmail` on `arn:aws:ses:us-east-1:*:identity/soganileamanda@gmail.com`
+- boto3 is pre-installed on Lambda — not in deploy package, not needed locally
+- Falls back to CloudWatch logging if SES fails (does not surface error to visitor)
+
 ## Change History
 
 | Date | File | What Changed |
 |------|------|-------------|
 | 2026-04-07 | `static/css/style.css` | Light theme bg changed from cream (#ECEAE2) to off-white (#F5F4F2); card from #F2EEE6 to #F9F8F6 |
 | 2026-04-07 | `templates/base.html` | Cache-bust version bumped to v=26 |
+| 2026-04-07 | `routes/contact.py` | Wired SES email sending via `_send_via_ses()`; falls back to log on failure |
