@@ -26,7 +26,7 @@ html {
   --bg: #07070F;
   --bg2: #0D0D1A;
   --text: #E8E6F4;
-  --muted: #706890;
+  --muted: #9A91BB;
   --accent: #4A7EF0;
   --accent2: #7850D8;
   --accent-glow: rgba(74,126,240,0.16);
@@ -195,8 +195,6 @@ section {
 }
 
 .nav-links a:hover { color: var(--accent); }
-
-[data-theme="dark"] .nav-links a { color: #9A91BB; }
 
 #theme-btn {
   background: var(--card);
