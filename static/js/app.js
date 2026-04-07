@@ -1,7 +1,7 @@
 /* ============================================================
    CONFIG
    ============================================================ */
-const API_BASE = '';
+const API_BASE = '/api';
 
 async function api(path, opts = {}) {
   const defaults = { headers: { 'Content-Type': 'application/json' } };
@@ -70,24 +70,28 @@ async function init() {
   initTheme();
   initScrollReveal();
 
+  const needsAbout    = document.getElementById('hero-firstname') || document.getElementById('about-bio');
+  const needsFacts    = document.getElementById('facts-grid');
+  const needsProjects = document.getElementById('projects-grid');
+  const needsBooks    = document.getElementById('books-shelf');
+  const needsSongs    = document.getElementById('songs-mine');
+
   const [about, facts, projects, books, songs] = await Promise.all([
-    api('/about').catch(() => null),
-    api('/fun-fact/all').catch(() => []),
-    api('/projects').catch(() => []),
-    api('/books').catch(() => ({ mine: [], community: [] })),
-    api('/songs').catch(() => ({ mine: [], community: [] })),
+    needsAbout    ? api('/about').catch(() => null)                              : Promise.resolve(null),
+    needsFacts    ? api('/fun-fact/all').catch(() => [])                         : Promise.resolve([]),
+    needsProjects ? api('/projects').catch(() => [])                             : Promise.resolve([]),
+    needsBooks    ? api('/books').catch(() => ({ mine: [], community: [] }))     : Promise.resolve({ mine: [], community: [] }),
+    needsSongs    ? api('/songs').catch(() => ({ mine: [], community: [] }))     : Promise.resolve({ mine: [], community: [] }),
   ]);
 
   if (about) { initHero(about); initAbout(about); }
-  initFunFacts(facts);
-  initProjects(projects);
-  initBooks(books);
-  initSongs(songs);
+  if (needsFacts)    initFunFacts(facts);
+  if (needsProjects) initProjects(projects);
+  if (needsBooks)  { initBooks(books); initBooksForm(); }
+  if (needsSongs)  { initSongs(songs); initSongsForm(); }
 
   initGame();
   initContact();
-  initBooksForm();
-  initSongsForm();
 }
 
 /* ============================================================

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Contact — Amanda Soganile{% endblock %}
+
+{% block content %}
+  <section id="contact">
+    <div class="section-inner">
+      <div class="contact-grid">
+        <div class="contact-left">
+          <div class="s-label">Say hi</div>
+          <h2 class="s-title">Let&#39;s <em>talk.</em></h2>
+          <p class="contact-note">I&#39;m always happy to meet new people and have a good conversation. Whether you want to talk tech, share ideas, or just say hi — my door is open.</p>
+          <div class="contact-socials">
+            <a href="https://github.com/AmandaSoganile" class="contact-social-link" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://www.linkedin.com/in/amanda-soganile-8237ba365" class="contact-social-link" target="_blank" rel="noopener">LinkedIn</a>
+          </div>
+        </div>
+        <div class="contact-right">
+          <form class="contact-form" id="contact-form">
+            <input type="text" name="name" placeholder="Your name" required maxlength="100">
+            <input type="email" name="slack_email" placeholder="Your email (Slack preferred)" required maxlength="200">
+            <textarea name="message" placeholder="What&#39;s on your mind?" required rows="5" maxlength="2000"></textarea>
+            <button type="submit" class="btn-p">Send it &#10022;</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Fun Facts — Amanda Soganile{% endblock %}
+
+{% block content %}
+  <section id="fun-facts">
+    <div class="section-inner">
+      <div class="s-label">Fun facts</div>
+      <h2 class="s-title ff-title">Things you <em>didn&#39;t ask to know.</em></h2>
+      <p class="ff-hint">Scratch to reveal &#8594; <span id="ff-count">0</span> / <span id="ff-total">0</span> revealed</p>
+      <div class="ff-cards" id="facts-grid"></div>
+    </div>
+  </section>
+{% endblock %}

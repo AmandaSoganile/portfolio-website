@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}Amanda Soganile{% endblock %}
+
+{% block content %}
+  <section id="landing">
+    <div class="landing-hero">
+      <div class="hero-ghost">AS</div>
+      <div class="landing-hero-inner">
+        <div class="eyebrow" id="hero-role"></div>
+        <div class="hero-name" id="hero-firstname"></div>
+        <div class="hero-name-accent" id="hero-lastname"></div>
+        <div class="hero-socials" style="margin-top:24px">
+          <a href="https://github.com/AmandaSoganile" class="social-link" target="_blank" rel="noopener">GitHub</a>
+          <span class="social-sep">&middot;</span>
+          <a href="https://www.linkedin.com/in/amanda-soganile-8237ba365" class="social-link" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="landing-nav-label">Where do you want to go?</div>
+
+    <div class="landing-grid">
+      <a href="/about" class="landing-card">
+        <div class="lc-num">01</div>
+        <div class="lc-icon">&#128101;</div>
+        <div class="lc-label">About me</div>
+        <div class="lc-title">The person behind the code</div>
+        <div class="lc-arrow">&rarr;</div>
+      </a>
+      <a href="/journey" class="landing-card">
+        <div class="lc-num">02</div>
+        <div class="lc-icon">&#128336;</div>
+        <div class="lc-label">Journey</div>
+        <div class="lc-title">How I got here</div>
+        <div class="lc-arrow">&rarr;</div>
+      </a>
+      <a href="/fun-facts" class="landing-card">
+        <div class="lc-num">03</div>
+        <div class="lc-icon">&#10024;</div>
+        <div class="lc-label">Fun facts</div>
+        <div class="lc-title">Things you didn&rsquo;t ask to know</div>
+        <div class="lc-arrow">&rarr;</div>
+      </a>
+      <a href="/projects" class="landing-card">
+        <div class="lc-num">04</div>
+        <div class="lc-icon">&#128187;</div>
+        <div class="lc-label">Projects</div>
+        <div class="lc-title">Things I&rsquo;ve built</div>
+        <div class="lc-arrow">&rarr;</div>
+      </a>
+      <a href="/books" class="landing-card">
+        <div class="lc-num">05</div>
+        <div class="lc-icon">&#128218;</div>
+        <div class="lc-label">Books</div>
+        <div class="lc-title">My shelf &mdash; add yours</div>
+        <div class="lc-arrow">&rarr;</div>
+      </a>
+      <a href="/songs" class="landing-card">
+        <div class="lc-num">06</div>
+        <div class="lc-icon">&#127925;</div>
+        <div class="lc-label">Music</div>
+        <div class="lc-title">What I&rsquo;m listening to</div>
+        <div class="lc-arrow">&rarr;</div>
+      </a>
+      <a href="/play" class="landing-card lc-accent">
+        <div class="lc-num">07</div>
+        <div class="lc-icon">&#127918;</div>
+        <div class="lc-label">Mini game</div>
+        <div class="lc-title">This or That &mdash; how alike are we?</div>
+        <div class="lc-arrow">&rarr;</div>
+      </a>
+      <a href="/contact" class="landing-card lc-cta">
+        <div class="lc-num">08</div>
+        <div class="lc-icon">&#9993;</div>
+        <div class="lc-label">Contact</div>
+        <div class="lc-title">Let&rsquo;s talk</div>
+        <div class="lc-arrow">&rarr;</div>
+      </a>
+    </div>
+  </section>
+{% endblock %}

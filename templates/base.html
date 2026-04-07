@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Amanda Soganile{% endblock %}</title>
+  <meta name="description" content="Amanda Soganile — software developer. Builder, learner, always curious.">
+  <meta property="og:title" content="Amanda Soganile">
+  <meta property="og:description" content="Software developer. Builder, learner, always curious.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kmn5hw7375.execute-api.us-east-1.amazonaws.com">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css?v=23">
+</head>
+<body>
+
+  <nav id="nav">
+    <a class="nav-logo" href="/">A.S</a>
+    <div class="nav-links">
+      <a href="/about">About</a>
+      <a href="/journey">Journey</a>
+      <a href="/fun-facts">Fun Facts</a>
+      <a href="/play">Play</a>
+      <a href="/projects">Projects</a>
+      <a href="/books">Books</a>
+      <a href="/songs">Songs</a>
+      <a href="/contact">Contact</a>
+      <button id="theme-btn" onclick="toggleTheme()">&#9728; Light</button>
+      <a href="/contact" class="cta-btn">Say hi &#10022;</a>
+    </div>
+  </nav>
+
+  {% block content %}{% endblock %}
+
+  <footer class="site-footer">
+    <span>Built by Amanda Soganile</span>
+    <a href="https://github.com/AmandaSoganile/portfolio-website" class="footer-source" target="_blank" rel="noopener">View source &rarr;</a>
+  </footer>
+
+  {% block modals %}{% endblock %}
+
+  <div id="toast"></div>
+  <script src="/static/js/app.js?v=23"></script>
+</body>
+</html>
