@@ -50,7 +50,7 @@ def create_app(config=None):
     app = Flask(__name__)
     CORS(app)
 
-    app.config["DATABASE"] = str(BASE / "portfolio.db")
+    app.config["DATABASE"] = "/tmp/portfolio.db" if os.environ.get("AWS_LAMBDA_FUNCTION_NAME") else str(BASE / "portfolio.db")
     app.config["STORAGE_BACKEND"] = os.environ.get("STORAGE_BACKEND", "sqlite")
     app.config["CONTACT_EMAIL"] = os.environ.get("CONTACT_EMAIL", "")
     app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 0
