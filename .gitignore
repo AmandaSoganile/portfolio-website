@@ -38,3 +38,8 @@ _source/
 *.key
 *.pdf
 *.log
+
+# Lambda build artifacts
+package/
+portfolio.zip
+*.zip
