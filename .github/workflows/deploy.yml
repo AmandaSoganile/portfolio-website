@@ -21,8 +21,9 @@ jobs:
       - name: Build deployment package
         run: |
           pip install \
-            flask flask-cors mangum asgiref rcssmin rjsmin \
+            flask flask-cors mangum asgiref \
             --target ./package --quiet
+          pip install rcssmin rjsmin --quiet
           python3 scripts/minify.py
           cd package && zip -r ../portfolio.zip . -x "*.pyc" -x "*/__pycache__/*" -q
           cd ..
