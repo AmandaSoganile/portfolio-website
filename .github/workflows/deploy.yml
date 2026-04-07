@@ -23,15 +23,7 @@ jobs:
           pip install \
             flask flask-cors mangum asgiref rcssmin rjsmin \
             --target ./package --quiet
-          python3 -c "
-import rcssmin, rjsmin, pathlib
-css = pathlib.Path('static/css/style.css')
-css.write_text(rcssmin.cssmin(css.read_text()))
-js = pathlib.Path('static/js/app.js')
-js.write_text(rjsmin.jsmin(js.read_text()))
-print('Minified CSS:', css.stat().st_size, 'bytes')
-print('Minified JS:', js.stat().st_size, 'bytes')
-"
+          python3 scripts/minify.py
           cd package && zip -r ../portfolio.zip . -x "*.pyc" -x "*/__pycache__/*" -q
           cd ..
           zip -r portfolio.zip routes/ store.py app.py templates/ static/ data/ VERSION \
