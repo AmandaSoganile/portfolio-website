@@ -4,74 +4,70 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-Personal portfolio website for Amanda Songanile. Currently a single-file static site (`index.html`). Flask backend is planned for a later phase.
+Personal portfolio website for Amanda Songanile. Flask + vanilla JS, multi-page architecture, deployed to AWS Lambda via GitHub Actions.
 
 ## Current Stack
 
-- Pure HTML / CSS / JS — no build step, no npm, no bundler
-- Google Fonts: Playfair Display (headings) + DM Sans (body), loaded via CDN
-- All state is `localStorage` only (likes, comments, theme preference)
-- To preview: open `index.html` directly in a browser
+- Flask (Python) — templates, API routes
+- Vanilla JS — theme cycling, API calls, scroll reveal
+- SQLite — data storage (portfolio.db locally, /tmp/portfolio.db on Lambda)
+- S3 bucket: `amanda-portfolio-assets` — static image hosting
+- Deployed: API Gateway v2 (kmn5hw7375) → Lambda (amanda-portfolio) in us-east-1
+- CI/CD: push to `prod` branch triggers `.github/workflows/deploy.yml`
+
+## Pages
+
+| Route | Template |
+|-------|----------|
+| `/` | `templates/landing.html` |
+| `/about` | `templates/about.html` |
+| `/journey` | `templates/journey.html` |
+| `/skills` | `templates/skills.html` |
+| `/projects` | `templates/projects.html` |
+| `/fun-facts` | `templates/fun-facts.html` |
+| `/books` | `templates/books.html` |
+| `/songs` | `templates/songs.html` |
+| `/play` | `templates/play.html` |
+| `/contact` | `templates/contact.html` |
 
 ## Architecture
 
-Everything lives in `index.html` in three clearly labelled blocks:
+- `app.py` — Flask app, all blueprints registered with `url_prefix='/api'`
+- `routes/frontend.py` — page routes
+- `routes/about.py` — /api/about, /api/skills
+- `data/` — JSON data files (projects.json, skills.json, songs_mine.json, etc.)
+- `static/css/style.css` — all styles, cache-busted with `?v=N`
+- `static/js/app.js` — all JS, cache-busted with `?v=N`
+- `templates/base.html` — shared nav, theme button, page-next pill, footer
 
-| Block | What's in it |
-|-------|-------------|
-| `<style>` | All CSS — theme variables, layout, animations, components |
-| `<body>` | Semantic sections in page order |
-| `<script>` | All JS — cursor, progress bar, theme switcher, typewriter, scroll reveal, fun-fact interactions, contact form, toast |
+## Theming
 
-### Theming
+Three themes cycled via button: `dark` → `light` → `pink`
+- `:root` (light): `--bg: #F5F4F2; --bg2: #EDECE9; --card: #F9F8F6`
+- `[data-theme="dark"]`: `--bg: #07070F; --bg2: #0D0D1A; --card: #11111E`
+- `[data-theme="pink"]`: `--bg: #FDF0F4; --bg2: #F8E4EB; --card: #FFF5F8`
+- Saved to `localStorage` under key `portfolio-theme`
+- Theme button labels: dark→"☀ Light", light→"🌸 Pink", pink→"◑ Dark"
 
-Three themes controlled by `data-theme` on `<html>`: `default`, `pink`, `dark`.
-All colour values are CSS custom properties on `:root` and overridden per theme selector.
-Saved to `localStorage` under key `portfolio-theme`.
+## Photo
 
-### Sections (in DOM order)
+Real photo at `https://amanda-portfolio-assets.s3.amazonaws.com/amanda.jpg`
+Scrapbook effect: white border (`border: 6px solid #fff`), `.photo-tape` div above, `.sticky-note` below.
 
-1. **Hero** — name, typewriter role, CTA buttons, floating image frame, animated blobs
-2. **Fun Fact Strip 1** — two `ff-card` cards (ff1, ff2) with like + comment
-3. **About** — two-column grid: image placeholder left, bio + tags right
-4. **Get to Know Me** — 6 flip cards, toggled by click
-5. **Fun Fact Strip 2** — one card (ff3)
-6. **Projects** — 3-column auto-fit grid of `proj-card` components
-7. **Fun Fact Strip 3** — two cards (ff4, ff5)
-8. **Contact** — centred form + social icon row
+## Cache Busting
 
-### Fun Fact cards
+Current version: `v=26`. Bump in `templates/base.html` whenever CSS or JS changes.
 
-Each card has a unique `id` (`ff1`–`ff5`). Likes and comments are stored in `localStorage` as:
-- `liked-{id}` — `'true'` / `'false'`
-- `like-count-{id}` — integer string
-- `comments-{id}` — JSON array of `{ name, text }`
+## Key Decisions
 
-### Scroll reveal
+- Lambda filesystem read-only → SQLite at `/tmp/portfolio.db` on Lambda, local path otherwise
+- All API routes prefixed `/api/`
+- `initHero()` is null-safe — hero elements don't exist on all pages
+- PAGE_SEQUENCE in app.js drives the "Next: X →" pill navigation
 
-Elements with class `reveal`, `reveal-l`, or `reveal-r` start hidden and animate in via `IntersectionObserver`. Delay classes `d1`–`d6` stagger siblings.
+## Change History
 
-## Adding Photos
-
-Two placeholders exist for Amanda's photo:
-
-- **Hero frame** (`#hero .hero-img-placeholder`) — replace the `<div>` with `<img src="amanda-cutout.png" alt="Amanda">`. Use a PNG with transparent background.
-- **About image** (`#about .about-img-wrap`) — add `<img src="amanda-about.jpg" ...>` inside `.about-img-wrap` with `style="width:100%;height:100%;object-fit:cover;"`.
-
-## Planned: Flask Phase
-
-When migrating to Flask:
-- `index.html` moves to `templates/index.html`
-- Fun fact comments/likes will POST to Flask endpoints instead of writing to `localStorage`
-- Contact form will POST to a Flask route that forwards to Slack via webhook
-- Static assets (images, CSS if extracted) go in `static/`
-
-## Content to Replace
-
-All placeholder text in `index.html` is marked with comments or obvious filler. Key spots:
-- Typewriter roles array in `<script>` — update with real roles
-- About section paragraphs — replace with Amanda's real bio
-- Flip card answers — replace with real answers
-- Fun fact card text — replace with real facts
-- Project cards — add real projects and descriptions
-- Social links — replace `href="#"` with real URLs
+| Date | File | What Changed |
+|------|------|-------------|
+| 2026-04-07 | `static/css/style.css` | Light theme bg changed from cream (#ECEAE2) to off-white (#F5F4F2); card from #F2EEE6 to #F9F8F6 |
+| 2026-04-07 | `templates/base.html` | Cache-bust version bumped to v=26 |

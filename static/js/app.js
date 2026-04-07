@@ -13,6 +13,9 @@ async function api(path, opts = {}) {
 /* ============================================================
    THEME
    ============================================================ */
+const THEMES = ['dark', 'light', 'pink'];
+const THEME_LABELS = { dark: '☀ Light', light: '🌸 Pink', pink: '◑ Dark' };
+
 function initTheme() {
   const saved = localStorage.getItem('portfolio-theme') || 'dark';
   document.documentElement.setAttribute('data-theme', saved);
@@ -21,7 +24,8 @@ function initTheme() {
 
 function toggleTheme() {
   const current = document.documentElement.getAttribute('data-theme');
-  const next = current === 'dark' ? 'light' : 'dark';
+  const idx = THEMES.indexOf(current);
+  const next = THEMES[(idx + 1) % THEMES.length];
   document.documentElement.setAttribute('data-theme', next);
   localStorage.setItem('portfolio-theme', next);
   updateThemeBtn(next);
@@ -29,7 +33,7 @@ function toggleTheme() {
 
 function updateThemeBtn(theme) {
   const btn = document.getElementById('theme-btn');
-  if (btn) btn.textContent = theme === 'dark' ? '\u2600 Light' : '\u25D1 Dark';
+  if (btn) btn.textContent = THEME_LABELS[theme] || '☀ Light';
 }
 
 /* ============================================================
@@ -58,9 +62,12 @@ function initScrollReveal() {
    HERO
    ============================================================ */
 function initHero(about) {
-  document.getElementById('hero-role').textContent = '\u2726 ' + about.tagline;
-  document.getElementById('hero-firstname').textContent = about.name.split(' ')[0];
-  document.getElementById('hero-lastname').textContent = about.name.split(' ').slice(-1)[0] + '.';
+  const role = document.getElementById('hero-role');
+  const first = document.getElementById('hero-firstname');
+  const last = document.getElementById('hero-lastname');
+  if (role)  role.textContent  = '\u2726 ' + about.tagline;
+  if (first) first.textContent = about.name.split(' ')[0];
+  if (last)  last.textContent  = about.name.split(' ').slice(-1)[0] + '.';
 }
 
 /* ============================================================
@@ -75,13 +82,15 @@ async function init() {
   const needsProjects = document.getElementById('projects-grid');
   const needsBooks    = document.getElementById('books-shelf');
   const needsSongs    = document.getElementById('songs-mine');
+  const needsSkills   = document.getElementById('skills-grid');
 
-  const [about, facts, projects, books, songs] = await Promise.all([
+  const [about, facts, projects, books, songs, skills] = await Promise.all([
     needsAbout    ? api('/about').catch(() => null)                              : Promise.resolve(null),
     needsFacts    ? api('/fun-fact/all').catch(() => [])                         : Promise.resolve([]),
     needsProjects ? api('/projects').catch(() => [])                             : Promise.resolve([]),
     needsBooks    ? api('/books').catch(() => ({ mine: [], community: [] }))     : Promise.resolve({ mine: [], community: [] }),
     needsSongs    ? api('/songs').catch(() => ({ mine: [], community: [] }))     : Promise.resolve({ mine: [], community: [] }),
+    needsSkills   ? api('/skills').catch(() => [])                               : Promise.resolve([]),
   ]);
 
   if (about) {
@@ -94,6 +103,7 @@ async function init() {
   if (needsProjects) initProjects(projects);
   if (needsBooks)  { initBooks(books); initBooksForm(); }
   if (needsSongs)  { initSongs(songs); initSongsForm(); }
+  if (needsSkills)   initSkills(skills);
 
   initGame();
   initContact();
@@ -141,6 +151,33 @@ function initAbout(about) {
     learningEl.appendChild(c);
   });
 }
+function initSkills(skills) {
+  const grid = document.getElementById('skills-grid');
+  if (!grid || !skills.length) return;
+  skills.forEach(group => {
+    const block = document.createElement('div');
+    block.className = 'skill-block';
+    const rows = group.items.map(s => {
+      const dots = [1,2,3].map(i =>
+        `<i class="ldot${i <= s.level ? ' ldot-on' : ''}"></i>`
+      ).join('');
+      return `
+        <div class="skill-row">
+          <span class="skill-name">${s.name}</span>
+          <span class="skill-dots">${dots}</span>
+        </div>`;
+    }).join('');
+    block.innerHTML = `
+      <div class="skill-block-header">
+        <span class="skill-block-icon">${group.icon}</span>
+        <span class="skill-block-label">${group.category}</span>
+      </div>
+      <div class="skill-rows">${rows}</div>
+    `;
+    grid.appendChild(block);
+  });
+}
+
 function initProjects(projects) {
   const grid = document.getElementById('projects-grid');
   if (!projects || projects.length === 0) return;
@@ -163,17 +200,12 @@ function initProjects(projects) {
         ${p.links?.github ? `<a href="${p.links.github}" class="proj-link proj-link-ghost" target="_blank">GitHub</a>` : ''}
       </div>
     </div>
-    <div class="proj-screens">
-      <div class="proj-screen proj-screen-main">
-        <span class="proj-screen-label">Dashboard</span>
+    <div class="proj-screens proj-screens-2up">
+      <div class="proj-screen-phone">
+        <img src="https://amanda-portfolio-assets.s3.amazonaws.com/farmcare-landing.png" alt="FarmCare landing screen">
       </div>
-      <div class="proj-screen-row">
-        <div class="proj-screen">
-          <span class="proj-screen-label">Add Animal</span>
-        </div>
-        <div class="proj-screen">
-          <span class="proj-screen-label">Health Records</span>
-        </div>
+      <div class="proj-screen-phone">
+        <img src="https://amanda-portfolio-assets.s3.amazonaws.com/farmcare-animals.png" alt="FarmCare animals screen">
       </div>
     </div>
   `;
@@ -588,14 +620,15 @@ function renderTTResult() {
    PAGE NEXT NAVIGATION
    ============================================================ */
 const PAGE_SEQUENCE = [
-  { path: '/',          label: 'About me' },
-  { path: '/about',     label: 'The Journey' },
-  { path: '/journey',   label: 'Fun Facts' },
-  { path: '/fun-facts', label: 'Projects' },
-  { path: '/projects',  label: 'Books' },
-  { path: '/books',     label: 'Songs' },
-  { path: '/songs',     label: 'Play' },
-  { path: '/play',      label: 'Contact' },
+  { path: '/',          label: 'Home' },
+  { path: '/about',     label: 'About' },
+  { path: '/journey',   label: 'Journey' },
+  { path: '/skills',    label: 'Skills' },
+  { path: '/fun-facts', label: 'Fun Facts' },
+  { path: '/projects',  label: 'Projects' },
+  { path: '/books',     label: 'Books' },
+  { path: '/songs',     label: 'Songs' },
+  { path: '/play',      label: 'Play' },
   { path: '/contact',   label: null },
 ];
 

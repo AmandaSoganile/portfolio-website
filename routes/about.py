@@ -12,3 +12,8 @@ def about():
 @bp.route("/projects")
 def projects():
     return jsonify(load_json("projects.json"))
+
+
+@bp.route("/skills")
+def skills():
+    return jsonify(load_json("skills.json"))

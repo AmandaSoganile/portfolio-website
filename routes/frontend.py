@@ -38,9 +38,14 @@ def songs_page():
     return render_template("songs.html")
 
 
+@bp.route("/skills")
+def skills_page():
+    return render_template("skills.html")
+
+
 @bp.route("/play")
 def game_page():
-    return render_template("game.html")
+    return render_template("play.html")
 
 
 @bp.route("/contact")
