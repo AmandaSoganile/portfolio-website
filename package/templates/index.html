@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amanda Soganile</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css?v=21">
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <div class="nav-logo">A.S</div>
+    <div class="nav-links">
+      <a href="#hero">Home</a>
+      <a href="#about">About</a>
+      <a href="#journey">Journey</a>
+      <a href="#fun-facts">Fun Facts</a>
+      <a href="#game">Play</a>
+      <a href="#projects">Projects</a>
+      <a href="#books">Books</a>
+      <a href="#songs">Songs</a>
+      <a href="#contact">Contact</a>
+      <button id="theme-btn" onclick="toggleTheme()">&#9728; Light</button>
+      <button class="cta-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Say hi &#10022;</button>
+    </div>
+  </nav>
+
+  <!-- HERO — populated by JS -->
+  <section id="hero">
+    <div class="hero-ghost">AS</div>
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="eyebrow" id="hero-role"></div>
+        <div class="hero-name" id="hero-firstname"></div>
+        <div class="hero-name-accent" id="hero-lastname"></div>
+        <div class="btns">
+          <button class="btn-g" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get in touch</button>
+        </div>
+        <div class="hero-socials">
+          <a href="#" class="social-link">GitHub</a>
+          <span class="social-sep">&middot;</span>
+          <a href="#" class="social-link">LinkedIn</a>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <div class="photo-frame"><div class="photo-emoji">&#129469;&#8205;&#9792;&#65039;</div></div>
+        <div class="sticky-note">hi, that&#39;s me</div>
+      </div>
+    </div>
+    <div class="scroll-ind"><span>scroll</span><div class="scroll-line"></div></div>
+  </section>
+
+  <!-- ABOUT — populated by JS -->
+  <section id="about">
+    <div class="section-inner">
+      <div class="s-label">About me</div>
+      <h2 class="s-title">The person <em>behind the code.</em></h2>
+      <div class="about-grid reveal">
+        <div class="about-left">
+          <p class="about-bio" id="about-bio"></p>
+          <p class="about-name-meaning" id="about-meaning"></p>
+        </div>
+        <div class="about-right">
+          <div class="about-block">
+            <div class="about-block-label">Things I love</div>
+            <div class="about-chips" id="about-loves"></div>
+          </div>
+          <div class="about-block">
+            <div class="about-block-label">Currently learning</div>
+            <div class="about-chips" id="about-learning"></div>
+          </div>
+          <div class="about-block">
+            <div class="about-block-label">Life goal</div>
+            <p class="about-goal" id="about-goal"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOURNEY — static content -->
+  <section id="journey">
+    <div class="section-inner">
+      <div class="s-label">The journey</div>
+      <h2 class="s-title">How I got <em>here.</em></h2>
+      <div class="timeline">
+        <div class="tl-item reveal d1">
+          <div class="tl-yr"><div class="yr-big">14</div><div class="yr-sm">~2014</div></div>
+          <div class="tl-dot"></div>
+          <div class="tl-body">
+            <div class="tl-t">First Program</div>
+            <div class="tl-d">Fourth or fifth grade. A default Scratch game — nothing original, nothing groundbreaking. But I pressed run and something happened on screen because of me. That feeling stuck.</div>
+            <span class="chip">Scratch</span>
+          </div>
+        </div>
+        <div class="tl-item reveal d2">
+          <div class="tl-yr"><div class="yr-big">22</div><div class="yr-sm">~2022</div></div>
+          <div class="tl-dot"></div>
+          <div class="tl-body">
+            <div class="tl-t">The Hackathon Website That Wasn&#39;t</div>
+            <div class="tl-d">My friends and I wanted to build a virtual space tour website. We had no idea how to make a webpage. What came out looked nothing like the plan — and that was the whole lesson. We learned that the gap between the idea in your head and the thing you actually build is where all the real work lives. We also learned that laughing through the chaos makes it worth it. I&#39;d do it again.</div>
+            <span class="chip">HTML &middot; First hackathon</span>
+          </div>
+        </div>
+        <div class="tl-item reveal d3">
+          <div class="tl-yr"><div class="yr-big">∞</div><div class="yr-sm">Always</div></div>
+          <div class="tl-dot"></div>
+          <div class="tl-body">
+            <div class="tl-t">Still Working on: Communication</div>
+            <div class="tl-d">Talking to new people doesn&#39;t come naturally to me. I overthink, I second-guess, I&#39;d rather listen than speak first. But I show up anyway — to new rooms, new conversations, new connections. Every day a little less uncomfortable than the last.</div>
+            <span class="chip">Ongoing</span>
+          </div>
+        </div>
+        <div class="tl-item reveal d4">
+          <div class="tl-yr"><div class="yr-big">26</div><div class="yr-sm">2026</div></div>
+          <div class="tl-dot tl-dot-current"></div>
+          <div class="tl-body">
+            <div class="tl-t">Integration Engineering Intern</div>
+            <div class="tl-d">Learning everything. Figuring out nothing. Somehow thriving.</div>
+            <span class="chip chip-current">In progress &#10022;</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FUN FACTS -->
+  <section id="fun-facts">
+    <div class="section-inner">
+      <div class="s-label">Fun facts</div>
+      <h2 class="s-title ff-title">Things you <em>didn&#39;t ask to know.</em></h2>
+      <p class="ff-hint">Scratch to reveal &#8594; <span id="ff-count">0</span> / <span id="ff-total">0</span> revealed</p>
+      <div class="ff-cards" id="facts-grid"></div>
+    </div>
+  </section>
+
+  <!-- PROJECTS — populated by JS -->
+  <section id="projects">
+    <div class="section-inner">
+      <div class="s-label">Work</div>
+      <h2 class="s-title">Things I&#39;ve <em>built.</em></h2>
+      <div class="projects-grid" id="projects-grid"></div>
+    </div>
+  </section>
+
+  <!-- BOOKS — populated by JS -->
+  <section id="books">
+    <div class="section-inner">
+      <div class="s-label">Reading</div>
+      <h2 class="s-title">Books I&#39;ve read. <em>Add yours.</em></h2>
+      <div class="shelf-wrap">
+        <div class="shelf" id="books-shelf"></div>
+        <div class="shelf-plank"></div>
+      </div>
+      <div class="books-community-section">
+        <div class="books-community-label">Community recs</div>
+        <p class="books-community-note">Add a book you think I should read</p>
+        <div class="community-list" id="books-community"></div>
+        <form class="submit-form" id="books-form">
+          <input type="text" name="name" placeholder="Your name" required maxlength="60">
+          <input type="text" name="title" placeholder="Book title" required maxlength="120">
+          <button type="submit">Add &rarr;</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- SONGS — populated by JS -->
+  <section id="songs">
+    <div class="section-inner">
+      <div class="s-label">Music</div>
+      <h2 class="s-title">What I&#39;m listening to. <em>Share yours.</em></h2>
+      <div class="songs-grid">
+        <div class="songs-mine-section">
+          <div class="songs-section-label">On my playlist</div>
+          <div class="songs-list" id="songs-mine"></div>
+        </div>
+        <div class="songs-community-section">
+          <div class="songs-section-label">Recommend a song</div>
+          <p class="songs-note">Drop a song that gets you into the zone — the kind that makes you build, create, and forget what time it is</p>
+          <div class="songs-community-list" id="songs-community"></div>
+          <form class="songs-form" id="songs-form">
+            <div class="songs-form-row">
+              <input type="text" name="name" placeholder="Your name" required maxlength="60">
+              <input type="text" name="artist" placeholder="Artist" maxlength="120">
+            </div>
+            <input type="text" name="title" placeholder="Song title" required maxlength="120">
+            <textarea name="note" placeholder="Why this song? (optional)" maxlength="300" rows="2"></textarea>
+            <button type="submit">Add to the list &rarr;</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GAME -->
+  <section id="game">
+    <div class="section-inner">
+      <div class="s-label">Mini game</div>
+      <h2 class="s-title game-title">Build <em>my day.</em></h2>
+      <div class="game-wrap" id="game-wrap"></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-inner">
+      <div class="contact-grid">
+        <div class="contact-left">
+          <div class="s-label">Say hi</div>
+          <h2 class="s-title">Let&#39;s <em>talk.</em></h2>
+          <p class="contact-note">I&#39;m always happy to meet new people and have a good conversation. Whether you want to talk tech, share ideas, or just say hi — my door is open.</p>
+          <div class="contact-socials">
+            <a href="#" class="contact-social-link">GitHub</a>
+            <a href="#" class="contact-social-link">LinkedIn</a>
+          </div>
+        </div>
+        <div class="contact-right">
+          <form class="contact-form" id="contact-form">
+            <input type="text" name="name" placeholder="Your name" required maxlength="100">
+            <input type="email" name="slack_email" placeholder="Your email (Slack preferred)" required maxlength="200">
+            <textarea name="message" placeholder="What&#39;s on your mind?" required rows="5" maxlength="2000"></textarea>
+            <button type="submit" class="btn-p">Send it &#10022;</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MUSIC PLAYER -->
+  <div id="player">
+    <span class="play-icon">&#9654;</span>
+    <span class="player-track">Billie Jean &mdash; MJ</span>
+    <div class="bars">
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </div>
+  </div>
+
+  <!-- BOOK MODAL -->
+  <div id="book-modal" onclick="if(event.target===this)this.classList.remove('open')">
+    <div class="book-modal-inner">
+      <button class="book-modal-close" onclick="document.getElementById('book-modal').classList.remove('open')">&times;</button>
+      <img id="book-modal-cover" alt="Book cover">
+      <div class="book-modal-info">
+        <div class="book-modal-title" id="book-modal-title"></div>
+        <div class="book-modal-author" id="book-modal-author"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast"></div>
+
+  <script src="/static/js/app.js?v=21"></script>
+</body>
+</html>
