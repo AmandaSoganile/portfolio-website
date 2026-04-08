@@ -93,7 +93,7 @@ def dashboard():
 
 # --- Book actions ---
 
-@bp.route("/books/<int:row_id>/toggle", methods=["POST"])
+@bp.route("/books/<row_id>/toggle", methods=["POST"])
 @login_required
 def toggle_book(row_id):
     from app import get_store
@@ -101,7 +101,7 @@ def toggle_book(row_id):
     return redirect(url_for("admin.dashboard") + "#tab-books")
 
 
-@bp.route("/books/<int:row_id>/delete", methods=["POST"])
+@bp.route("/books/<row_id>/delete", methods=["POST"])
 @login_required
 def delete_book(row_id):
     from app import get_store
@@ -111,7 +111,7 @@ def delete_book(row_id):
 
 # --- Song actions ---
 
-@bp.route("/songs/<int:row_id>/toggle", methods=["POST"])
+@bp.route("/songs/<row_id>/toggle", methods=["POST"])
 @login_required
 def toggle_song(row_id):
     from app import get_store
@@ -119,7 +119,7 @@ def toggle_song(row_id):
     return redirect(url_for("admin.dashboard") + "#tab-songs")
 
 
-@bp.route("/songs/<int:row_id>/delete", methods=["POST"])
+@bp.route("/songs/<row_id>/delete", methods=["POST"])
 @login_required
 def delete_song(row_id):
     from app import get_store
@@ -129,7 +129,7 @@ def delete_song(row_id):
 
 # --- Message actions ---
 
-@bp.route("/messages/<int:row_id>/delete", methods=["POST"])
+@bp.route("/messages/<row_id>/delete", methods=["POST"])
 @login_required
 def delete_message(row_id):
     from app import get_store

@@ -40,9 +40,13 @@ def version():
 
 def get_store():
     from flask import current_app, g
-    from store import Store
     if "store" not in g:
-        g.store = Store(current_app.config["DATABASE"])
+        if os.environ.get("AWS_LAMBDA_FUNCTION_NAME"):
+            from dynamo_store import DynamoStore
+            g.store = DynamoStore()
+        else:
+            from store import Store
+            g.store = Store(current_app.config["DATABASE"])
     return g.store
 
 

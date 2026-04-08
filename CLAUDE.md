@@ -60,7 +60,7 @@ Current version: `v=26`. Bump in `templates/base.html` whenever CSS or JS change
 
 ## Key Decisions
 
-- Lambda filesystem read-only → SQLite at `/tmp/portfolio.db` on Lambda, local path otherwise
+- Lambda uses DynamoDB (`amanda-portfolio` table) via `dynamo_store.py`; local dev uses SQLite via `store.py`
 - All API routes prefixed `/api/`
 - `initHero()` is null-safe — hero elements don't exist on all pages
 - PAGE_SEQUENCE in app.js drives the "Next: X →" pill navigation
@@ -98,7 +98,8 @@ Contact form POSTs to `/api/contact`. On Lambda, `_send_via_ses()` in `routes/co
 | 2026-04-07 | `templates/base.html` | Cache-bust version bumped to v=26 |
 | 2026-04-07 | `routes/contact.py` | Wired SES email sending via `_send_via_ses()`; falls back to log on failure |
 | 2026-04-08 | `store.py` | Added `visible` column to submissions tables, `contact_messages` table, admin CRUD methods; added `page_views` table and visitor query methods |
-| 2026-04-08 | `routes/admin.py` | New admin blueprint: login, dashboard, submissions management, JSON data file editor; passes visitor data to dashboard |
-| 2026-04-08 | `routes/contact.py` | Save incoming messages to `contact_messages` DB table |
-| 2026-04-08 | `app.py` | Registered admin blueprint; added `SECRET_KEY` and `ADMIN_PASSWORD` config; added `_geolocate_ip()` and `before_request` page-view tracking |
+| 2026-04-08 | `dynamo_store.py` | New file: DynamoDB-backed store with same interface as `store.py`; single-table design (pk/sk) |
+| 2026-04-08 | `routes/admin.py` | New admin blueprint; passes visitor data to dashboard; routes accept string IDs for DynamoDB compat |
+| 2026-04-08 | `routes/contact.py` | Save incoming messages to DB |
+| 2026-04-08 | `app.py` | Auto-selects DynamoStore on Lambda, SQLite locally; `_geolocate_ip()` and `before_request` tracking |
 | 2026-04-08 | `templates/admin/dashboard.html` | Stats cards row, Visitors tab with location + recent-visits tables |

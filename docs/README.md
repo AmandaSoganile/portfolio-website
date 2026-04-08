@@ -2,6 +2,16 @@
 
 ## Recent Changes
 
+### 2026-04-08 — DynamoDB migration (persistent storage)
+
+Replaced ephemeral SQLite on `/tmp` with DynamoDB for all Lambda data. Community submissions, contact messages, visitor tracking, and reactions now persist permanently across cold starts and deploys.
+
+- DynamoDB table: `amanda-portfolio` (single-table design, on-demand billing)
+- New file: `dynamo_store.py` — drop-in replacement for `store.py` with same interface
+- `app.py` auto-selects `DynamoStore` on Lambda, `Store` (SQLite) locally
+- Admin routes now accept string IDs (DynamoDB uses string keys)
+- Lambda IAM role updated with `dynamodb-access` inline policy
+
 ### 2026-04-08 — Visitor tracking on admin dashboard
 
 Added page-view tracking with IP geolocation. Every frontend page load records the path, timestamp, and visitor location (country, city, region) via ip-api.com. Raw IPs are never stored — only a SHA-256 hash prefix for unique-visitor counting.
