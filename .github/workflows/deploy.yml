@@ -27,7 +27,7 @@ jobs:
           python3 scripts/minify.py
           cd package && zip -r ../portfolio.zip . -x "*.pyc" -x "*/__pycache__/*" -q
           cd ..
-          zip -r portfolio.zip routes/ store.py app.py templates/ static/ data/ VERSION \
+          zip -r portfolio.zip routes/ store.py dynamo_store.py app.py templates/ static/ data/ VERSION \
             -x "*.pyc" -q
 
       - name: Deploy to Lambda
@@ -44,4 +44,4 @@ jobs:
             --function-name amanda-portfolio
           aws lambda update-function-configuration \
             --function-name amanda-portfolio \
-            --environment "Variables={GIT_SHA=${{ github.sha }},DEPLOY_TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)}"
+            --environment "Variables={GIT_SHA=${{ github.sha }},DEPLOY_TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ),SECRET_KEY=${{ secrets.SECRET_KEY }},ADMIN_PASSWORD=${{ secrets.ADMIN_PASSWORD }}}"
