@@ -74,6 +74,14 @@ Contact form POSTs to `/api/contact`. On Lambda, `_send_via_ses()` in `routes/co
 - boto3 is pre-installed on Lambda — not in deploy package, not needed locally
 - Falls back to CloudWatch logging if SES fails (does not surface error to visitor)
 
+## Admin Portal
+
+- Route: `/admin` (login), `/admin/dashboard`
+- Auth: password-only via `ADMIN_PASSWORD` env var; `SECRET_KEY` env var for session signing
+- Blueprint: `routes/admin.py`, templates in `templates/admin/`
+- Features: manage book/song submissions (show/hide/delete), read/delete contact messages, edit all 6 JSON data files in `data/`
+- JSON edits only persist locally — Lambda filesystem is read-only, so redeploy to apply data changes
+
 ## Change History
 
 | Date | File | What Changed |
@@ -81,3 +89,7 @@ Contact form POSTs to `/api/contact`. On Lambda, `_send_via_ses()` in `routes/co
 | 2026-04-07 | `static/css/style.css` | Light theme bg changed from cream (#ECEAE2) to off-white (#F5F4F2); card from #F2EEE6 to #F9F8F6 |
 | 2026-04-07 | `templates/base.html` | Cache-bust version bumped to v=26 |
 | 2026-04-07 | `routes/contact.py` | Wired SES email sending via `_send_via_ses()`; falls back to log on failure |
+| 2026-04-08 | `store.py` | Added `visible` column to submissions tables, `contact_messages` table, admin CRUD methods |
+| 2026-04-08 | `routes/admin.py` | New admin blueprint: login, dashboard, submissions management, JSON data file editor |
+| 2026-04-08 | `routes/contact.py` | Save incoming messages to `contact_messages` DB table |
+| 2026-04-08 | `app.py` | Registered admin blueprint; added `SECRET_KEY` and `ADMIN_PASSWORD` config |

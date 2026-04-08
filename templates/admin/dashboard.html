@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — Amanda</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #07070F;
+      color: #e8e8f0;
+      min-height: 100vh;
+    }
+    a { color: inherit; text-decoration: none; }
+    code { font-family: 'Menlo', 'Monaco', monospace; font-size: 0.85em; }
+
+    /* ---- Header ---- */
+    .header {
+      background: #11111E;
+      border-bottom: 1px solid #1e1e30;
+      padding: 0.9rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .header-title { font-size: 0.95rem; font-weight: 600; }
+    .header-title span { color: #7c6af5; }
+    .logout {
+      font-size: 0.78rem;
+      color: #666;
+      padding: 0.35rem 0.75rem;
+      border: 1px solid #1e1e30;
+      border-radius: 6px;
+      transition: all 0.15s;
+    }
+    .logout:hover { color: #e8e8f0; border-color: #444; }
+
+    /* ---- Layout ---- */
+    .container { max-width: 1080px; margin: 0 auto; padding: 2rem; }
+
+    /* ---- Error banner ---- */
+    .error-banner {
+      padding: 0.7rem 1rem;
+      background: rgba(220, 38, 38, 0.1);
+      border: 1px solid rgba(220, 38, 38, 0.3);
+      border-radius: 8px;
+      font-size: 0.82rem;
+      color: #f87171;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ---- Main tabs ---- */
+    .tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid #1e1e30;
+      margin-bottom: 2rem;
+    }
+    .tab-btn {
+      padding: 0.65rem 1.25rem;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: #666;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+      margin-bottom: -1px;
+    }
+    .tab-btn:hover { color: #aaa; }
+    .tab-btn.active { color: #7c6af5; border-bottom-color: #7c6af5; }
+
+    /* ---- Panel ---- */
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    /* ---- Section header ---- */
+    .section-hd { margin-bottom: 1.25rem; }
+    .section-hd h2 { font-size: 1rem; font-weight: 600; }
+    .section-hd p { font-size: 0.8rem; color: #555; margin-top: 0.2rem; }
+
+    /* ---- Card ---- */
+    .card {
+      background: #11111E;
+      border: 1px solid #1e1e30;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    /* ---- Table ---- */
+    .tbl-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    th {
+      text-align: left;
+      padding: 0.65rem 1rem;
+      color: #555;
+      font-weight: 500;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border-bottom: 1px solid #1e1e30;
+      white-space: nowrap;
+    }
+    td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid #151525;
+      vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr.dimmed td { opacity: 0.4; }
+
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .badge-on  { background: rgba(52, 211, 153, 0.12); color: #34d399; }
+    .badge-off { background: rgba(248, 113, 113, 0.12); color: #f87171; }
+
+    /* ---- Action buttons ---- */
+    .actions { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+    .btn {
+      padding: 0.3rem 0.65rem;
+      border-radius: 5px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .btn-toggle { background: #1a1a2e; color: #aaa; border: 1px solid #2a2a3e; }
+    .btn-toggle:hover { background: #2a2a3e; color: #e8e8f0; }
+    .btn-delete { background: rgba(220, 38, 38, 0.1); color: #f87171; border: 1px solid rgba(220,38,38,0.2); }
+    .btn-delete:hover { background: rgba(220, 38, 38, 0.25); }
+    .btn-save {
+      background: #7c6af5;
+      color: #fff;
+      padding: 0.45rem 1rem;
+      font-size: 0.8rem;
+      border: none;
+    }
+    .btn-save:hover { background: #6a58e0; }
+
+    /* ---- Empty state ---- */
+    .empty { padding: 2.5rem; text-align: center; color: #444; font-size: 0.82rem; }
+
+    /* ---- Message cell ---- */
+    .msg-body { max-width: 380px; white-space: pre-wrap; word-break: break-word; line-height: 1.5; }
+
+    /* ---- Data file editor ---- */
+    .file-tabs { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
+    .file-tab-btn {
+      padding: 0.35rem 0.75rem;
+      background: #11111E;
+      border: 1px solid #1e1e30;
+      border-radius: 6px;
+      color: #666;
+      font-size: 0.78rem;
+      font-family: 'Menlo', 'Monaco', monospace;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .file-tab-btn:hover { color: #aaa; border-color: #2a2a3e; }
+    .file-tab-btn.active { color: #7c6af5; border-color: #7c6af5; background: #0e0e20; }
+
+    .file-editor { display: none; }
+    .file-editor.active { display: block; }
+
+    .file-editor .fname {
+      font-size: 0.8rem;
+      font-family: 'Menlo', 'Monaco', monospace;
+      color: #7c6af5;
+      margin-bottom: 0.6rem;
+    }
+    .json-area {
+      width: 100%;
+      min-height: 420px;
+      background: #0a0a14;
+      border: 1px solid #1e1e30;
+      border-radius: 8px;
+      color: #a8e6cf;
+      font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+      font-size: 0.78rem;
+      padding: 1rem;
+      resize: vertical;
+      outline: none;
+      line-height: 1.65;
+      transition: border-color 0.15s;
+    }
+    .json-area:focus { border-color: #7c6af5; }
+    .save-row {
+      margin-top: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .save-row small { font-size: 0.75rem; color: #444; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-title">Admin <span>/ Dashboard</span></div>
+  <a href="/admin/logout" class="logout">Sign out</a>
+</div>
+
+<div class="container">
+
+  {% if json_error %}
+  <div class="error-banner">{{ json_error }}</div>
+  {% endif %}
+
+  <div class="tabs">
+    <button class="tab-btn" data-tab="books">Books ({{ books|length }})</button>
+    <button class="tab-btn" data-tab="songs">Songs ({{ songs|length }})</button>
+    <button class="tab-btn" data-tab="messages">Messages ({{ messages|length }})</button>
+    <button class="tab-btn" data-tab="data">Data Files</button>
+  </div>
+
+  {# ------------------------------------------------------------------ #}
+  {# BOOKS                                                               #}
+  {# ------------------------------------------------------------------ #}
+  <div class="panel" id="panel-books">
+    <div class="section-hd">
+      <h2>Book Submissions</h2>
+      <p>Community recommendations. Hide a row to remove it from the public site without deleting it.</p>
+    </div>
+    <div class="card">
+      {% if books %}
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th><th>Title</th><th>Author</th><th>Date</th><th>Status</th><th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for b in books %}
+            <tr class="{{ '' if b.visible else 'dimmed' }}">
+              <td>{{ b.name }}</td>
+              <td>{{ b.title }}</td>
+              <td>{{ b.author or '—' }}</td>
+              <td style="white-space:nowrap">{{ b.submitted_at }}</td>
+              <td>
+                <span class="badge {{ 'badge-on' if b.visible else 'badge-off' }}">
+                  {{ 'Visible' if b.visible else 'Hidden' }}
+                </span>
+              </td>
+              <td>
+                <div class="actions">
+                  <form method="POST" action="/admin/books/{{ b.id }}/toggle">
+                    <button type="submit" class="btn btn-toggle">{{ 'Hide' if b.visible else 'Show' }}</button>
+                  </form>
+                  <form method="POST" action="/admin/books/{{ b.id }}/delete"
+                        onsubmit="return confirm('Delete this submission permanently?')">
+                    <button type="submit" class="btn btn-delete">Delete</button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <div class="empty">No book submissions yet.</div>
+      {% endif %}
+    </div>
+  </div>
+
+  {# ------------------------------------------------------------------ #}
+  {# SONGS                                                               #}
+  {# ------------------------------------------------------------------ #}
+  <div class="panel" id="panel-songs">
+    <div class="section-hd">
+      <h2>Song Submissions</h2>
+      <p>Community recommendations. Hide a row to remove it from the public site without deleting it.</p>
+    </div>
+    <div class="card">
+      {% if songs %}
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th><th>Title</th><th>Artist</th><th>Note</th><th>Date</th><th>Status</th><th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for s in songs %}
+            <tr class="{{ '' if s.visible else 'dimmed' }}">
+              <td>{{ s.name }}</td>
+              <td>{{ s.title }}</td>
+              <td>{{ s.artist or '—' }}</td>
+              <td>{{ s.note or '—' }}</td>
+              <td style="white-space:nowrap">{{ s.submitted_at }}</td>
+              <td>
+                <span class="badge {{ 'badge-on' if s.visible else 'badge-off' }}">
+                  {{ 'Visible' if s.visible else 'Hidden' }}
+                </span>
+              </td>
+              <td>
+                <div class="actions">
+                  <form method="POST" action="/admin/songs/{{ s.id }}/toggle">
+                    <button type="submit" class="btn btn-toggle">{{ 'Hide' if s.visible else 'Show' }}</button>
+                  </form>
+                  <form method="POST" action="/admin/songs/{{ s.id }}/delete"
+                        onsubmit="return confirm('Delete this submission permanently?')">
+                    <button type="submit" class="btn btn-delete">Delete</button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <div class="empty">No song submissions yet.</div>
+      {% endif %}
+    </div>
+  </div>
+
+  {# ------------------------------------------------------------------ #}
+  {# MESSAGES                                                            #}
+  {# ------------------------------------------------------------------ #}
+  <div class="panel" id="panel-messages">
+    <div class="section-hd">
+      <h2>Contact Messages</h2>
+      <p>Messages submitted via the contact form. Newest first.</p>
+    </div>
+    <div class="card">
+      {% if messages %}
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>Name</th><th>Email</th><th>Message</th><th>Received</th><th>Actions</th></tr>
+          </thead>
+          <tbody>
+            {% for m in messages %}
+            <tr>
+              <td style="white-space:nowrap">{{ m.name }}</td>
+              <td style="white-space:nowrap">{{ m.email }}</td>
+              <td><div class="msg-body">{{ m.message }}</div></td>
+              <td style="white-space:nowrap">{{ m.received_at[:10] }}</td>
+              <td>
+                <form method="POST" action="/admin/messages/{{ m.id }}/delete"
+                      onsubmit="return confirm('Delete this message permanently?')">
+                  <button type="submit" class="btn btn-delete">Delete</button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <div class="empty">No messages yet.</div>
+      {% endif %}
+    </div>
+  </div>
+
+  {# ------------------------------------------------------------------ #}
+  {# DATA FILES                                                          #}
+  {# ------------------------------------------------------------------ #}
+  <div class="panel" id="panel-data">
+    <div class="section-hd">
+      <h2>Data Files</h2>
+      <p>Edit your site content. JSON is validated before saving. Note: on Lambda the filesystem is read-only — edit locally and redeploy.</p>
+    </div>
+
+    <div class="file-tabs">
+      {% for fname in editable_files %}
+      <button class="file-tab-btn" data-file="{{ fname }}" onclick="showFile('{{ fname }}')">
+        {{ fname }}
+      </button>
+      {% endfor %}
+    </div>
+
+    {% for fname in editable_files %}
+    {% set fid = fname.replace('.', '-') %}
+    <div class="file-editor" id="file-{{ fid }}">
+      <form method="POST" action="/admin/data/{{ fname }}">
+        <div class="card" style="padding: 1.25rem;">
+          <div class="fname">{{ fname }}</div>
+          <textarea class="json-area" name="content" spellcheck="false">{{ files[fname] }}</textarea>
+          <div class="save-row">
+            <button type="submit" class="btn btn-save">Save</button>
+            <small>Validated as JSON before writing to disk.</small>
+          </div>
+        </div>
+      </form>
+    </div>
+    {% endfor %}
+  </div>
+
+</div>{# /container #}
+
+<script>
+  const TABS = ['books', 'songs', 'messages', 'data'];
+
+  function showTab(name) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    const panel = document.getElementById('panel-' + name);
+    const btn   = document.querySelector('[data-tab="' + name + '"]');
+    if (panel) panel.classList.add('active');
+    if (btn)   btn.classList.add('active');
+    if (name === 'data') ensureFileShown();
+  }
+
+  function showFile(fname) {
+    document.querySelectorAll('.file-editor').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.file-tab-btn').forEach(el => el.classList.remove('active'));
+    const id  = 'file-' + fname.replace(/\./g, '-');
+    const el  = document.getElementById(id);
+    const btn = document.querySelector('[data-file="' + fname + '"]');
+    if (el)  el.classList.add('active');
+    if (btn) btn.classList.add('active');
+  }
+
+  function ensureFileShown() {
+    if (!document.querySelector('.file-editor.active')) {
+      const first = document.querySelector('.file-tab-btn');
+      if (first) showFile(first.dataset.file);
+    }
+  }
+
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      showTab(btn.dataset.tab);
+      history.replaceState(null, '', '#tab-' + btn.dataset.tab);
+    });
+  });
+
+  // Init — respect URL hash, or default to books
+  (function init() {
+    {% if json_error and active_file %}
+    showTab('data');
+    showFile('{{ active_file }}');
+    {% else %}
+    const hash = location.hash.replace('#tab-', '');
+    showTab(TABS.includes(hash) ? hash : 'books');
+    {% endif %}
+  })();
+</script>
+
+</body>
+</html>

@@ -8,7 +8,7 @@ bp = Blueprint("songs", __name__)
 def get_songs():
     return jsonify({
         "mine": load_json("songs_mine.json"),
-        "community": get_store().get_song_submissions(),
+        "community": get_store().get_song_submissions(),  # visible-only
     })
 
 

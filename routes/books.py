@@ -8,7 +8,7 @@ bp = Blueprint("books", __name__)
 def get_books():
     return jsonify({
         "mine": load_json("books_mine.json"),
-        "community": get_store().get_book_submissions(),
+        "community": get_store().get_book_submissions(),  # visible-only
     })
 
 

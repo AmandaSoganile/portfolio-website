@@ -54,6 +54,8 @@ def create_app(config=None):
     app.config["STORAGE_BACKEND"] = os.environ.get("STORAGE_BACKEND", "sqlite")
     app.config["CONTACT_EMAIL"] = os.environ.get("CONTACT_EMAIL", "soganileamanda@gmail.com")
     app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 31536000  # 1 year — cache-busted via ?v=N
+    app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev-secret-change-in-prod")
+    app.config["ADMIN_PASSWORD"] = os.environ.get("ADMIN_PASSWORD", "")
     app.jinja_env.auto_reload = True
     app.config["TEMPLATES_AUTO_RELOAD"] = True
 
@@ -66,6 +68,7 @@ def create_app(config=None):
     from routes.books import bp as books_bp
     from routes.songs import bp as songs_bp
     from routes.contact import bp as contact_bp
+    from routes.admin import bp as admin_bp
 
     from routes.frontend import bp as frontend_bp
 
@@ -75,6 +78,7 @@ def create_app(config=None):
     app.register_blueprint(books_bp,      url_prefix='/api')
     app.register_blueprint(songs_bp,      url_prefix='/api')
     app.register_blueprint(contact_bp,    url_prefix='/api')
+    app.register_blueprint(admin_bp)
     app.register_blueprint(frontend_bp)
 
     return app

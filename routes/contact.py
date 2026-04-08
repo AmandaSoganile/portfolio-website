@@ -1,5 +1,6 @@
 import os
 from flask import Blueprint, jsonify, request, current_app
+from app import get_store
 
 bp = Blueprint("contact", __name__)
 
@@ -54,5 +55,6 @@ def contact():
             "message": "name, slack_email, and message are required"
         }), 400
 
+    get_store().add_contact_message(name, slack_email, message)
     _send_notification(name, slack_email, message)
     return jsonify({"status": "ok", "message": "Thanks! I'll get back to you soon."})

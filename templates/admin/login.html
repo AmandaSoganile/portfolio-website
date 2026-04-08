@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Amanda</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #07070F;
+      color: #e8e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .card {
+      background: #11111E;
+      border: 1px solid #1e1e30;
+      border-radius: 12px;
+      padding: 2.5rem 2rem;
+      width: 100%;
+      max-width: 360px;
+    }
+    h1 { font-size: 1.2rem; font-weight: 600; letter-spacing: -0.02em; }
+    .sub { font-size: 0.82rem; color: #666; margin-top: 0.25rem; margin-bottom: 2rem; }
+    label {
+      display: block;
+      font-size: 0.75rem;
+      color: #888;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+    input[type="password"] {
+      width: 100%;
+      padding: 0.7rem 0.9rem;
+      background: #07070F;
+      border: 1px solid #1e1e30;
+      border-radius: 8px;
+      color: #e8e8f0;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    input[type="password"]:focus { border-color: #7c6af5; }
+    button {
+      margin-top: 1.25rem;
+      width: 100%;
+      padding: 0.75rem;
+      background: #7c6af5;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    button:hover { background: #6a58e0; }
+    .error {
+      margin-top: 1rem;
+      padding: 0.6rem 0.9rem;
+      background: rgba(220, 38, 38, 0.12);
+      border: 1px solid rgba(220, 38, 38, 0.35);
+      border-radius: 6px;
+      font-size: 0.82rem;
+      color: #f87171;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Admin Portal</h1>
+    <p class="sub">Amanda's portfolio dashboard</p>
+    <form method="POST" autocomplete="off">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" autofocus autocomplete="current-password">
+      <button type="submit">Sign in</button>
+      {% if error %}<div class="error">{{ error }}</div>{% endif %}
+    </form>
+  </div>
+</body>
+</html>
