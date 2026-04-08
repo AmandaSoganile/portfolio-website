@@ -49,6 +49,9 @@ def _dashboard_ctx(store, **extra) -> dict:
         messages=store.get_contact_messages(),
         files=_load_files(),
         editable_files=EDITABLE_FILES,
+        visitor_stats=store.get_visitor_stats(),
+        visitor_locations=store.get_visitor_locations(),
+        recent_visits=store.get_recent_visits(),
         **extra,
     )
 

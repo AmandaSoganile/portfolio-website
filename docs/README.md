@@ -2,6 +2,21 @@
 
 ## Recent Changes
 
+### 2026-04-08 — Visitor tracking on admin dashboard
+
+Added page-view tracking with IP geolocation. Every frontend page load records the path, timestamp, and visitor location (country, city, region) via ip-api.com. Raw IPs are never stored — only a SHA-256 hash prefix for unique-visitor counting.
+
+**Admin dashboard changes:**
+- Three stat cards at the top: Unique Visitors, Page Views, Messages
+- New "Visitors" tab (default): location breakdown table + last 50 recent visits
+- Geo lookup only runs once per new visitor (cached for repeat visits), with a 1s timeout so it never blocks page loads
+
+**Files changed:**
+- `store.py` — `page_views` table, methods for recording views and querying stats/locations
+- `app.py` — `_geolocate_ip()` helper, `before_request` hook that tracks frontend routes
+- `routes/admin.py` — passes `visitor_stats`, `visitor_locations`, `recent_visits` to dashboard
+- `templates/admin/dashboard.html` — stat cards, Visitors tab with location + recent-visits tables
+
 ### 2026-04-08 — Admin portal
 
 Added a password-protected admin portal at `/admin`.

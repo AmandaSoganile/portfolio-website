@@ -150,6 +150,33 @@
     }
     .btn-save:hover { background: #6a58e0; }
 
+    /* ---- Stats row ---- */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .stat-card {
+      background: #11111E;
+      border: 1px solid #1e1e30;
+      border-radius: 10px;
+      padding: 1.25rem;
+    }
+    .stat-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #555;
+      font-weight: 500;
+      margin-bottom: 0.35rem;
+    }
+    .stat-value {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #7c6af5;
+    }
+
     /* ---- Empty state ---- */
     .empty { padding: 2.5rem; text-align: center; color: #444; font-size: 0.82rem; }
 
@@ -219,11 +246,88 @@
   <div class="error-banner">{{ json_error }}</div>
   {% endif %}
 
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-label">Unique Visitors</div>
+      <div class="stat-value">{{ visitor_stats.unique_visitors }}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Page Views</div>
+      <div class="stat-value">{{ visitor_stats.total_views }}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Messages</div>
+      <div class="stat-value">{{ messages|length }}</div>
+    </div>
+  </div>
+
   <div class="tabs">
+    <button class="tab-btn" data-tab="visitors">Visitors</button>
     <button class="tab-btn" data-tab="books">Books ({{ books|length }})</button>
     <button class="tab-btn" data-tab="songs">Songs ({{ songs|length }})</button>
     <button class="tab-btn" data-tab="messages">Messages ({{ messages|length }})</button>
     <button class="tab-btn" data-tab="data">Data Files</button>
+  </div>
+
+  {# ------------------------------------------------------------------ #}
+  {# VISITORS                                                            #}
+  {# ------------------------------------------------------------------ #}
+  <div class="panel" id="panel-visitors">
+    <div class="section-hd">
+      <h2>Visitor Locations</h2>
+      <p>Breakdown by location. Geolocation is approximate and based on IP address.</p>
+    </div>
+    <div class="card" style="margin-bottom: 2rem;">
+      {% if visitor_locations %}
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>Country</th><th>City</th><th>Region</th><th>Unique Visitors</th><th>Page Views</th></tr>
+          </thead>
+          <tbody>
+            {% for loc in visitor_locations %}
+            <tr>
+              <td>{{ loc.country }}</td>
+              <td>{{ loc.city or '—' }}</td>
+              <td>{{ loc.region or '—' }}</td>
+              <td>{{ loc.visitors }}</td>
+              <td>{{ loc.views }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <div class="empty">No visitor location data yet.</div>
+      {% endif %}
+    </div>
+
+    <div class="section-hd">
+      <h2>Recent Visits</h2>
+      <p>Last 50 page views.</p>
+    </div>
+    <div class="card">
+      {% if recent_visits %}
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>Page</th><th>Location</th><th>Time (UTC)</th></tr>
+          </thead>
+          <tbody>
+            {% for v in recent_visits %}
+            <tr>
+              <td><code>{{ v.path }}</code></td>
+              <td>{{ [v.city, v.region, v.country]|select|join(', ') or '—' }}</td>
+              <td style="white-space:nowrap">{{ v.visited_at[:19].replace('T', ' ') }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <div class="empty">No visits recorded yet.</div>
+      {% endif %}
+    </div>
   </div>
 
   {# ------------------------------------------------------------------ #}
@@ -405,7 +509,7 @@
 </div>{# /container #}
 
 <script>
-  const TABS = ['books', 'songs', 'messages', 'data'];
+  const TABS = ['visitors', 'books', 'songs', 'messages', 'data'];
 
   function showTab(name) {
     document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
@@ -448,7 +552,7 @@
     showFile('{{ active_file }}');
     {% else %}
     const hash = location.hash.replace('#tab-', '');
-    showTab(TABS.includes(hash) ? hash : 'books');
+    showTab(TABS.includes(hash) ? hash : 'visitors');
     {% endif %}
   })();
 </script>

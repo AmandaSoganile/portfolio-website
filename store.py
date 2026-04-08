@@ -39,6 +39,15 @@ class Store:
                 message     TEXT NOT NULL,
                 received_at TEXT NOT NULL
             );
+            CREATE TABLE IF NOT EXISTS page_views (
+                id         INTEGER PRIMARY KEY AUTOINCREMENT,
+                path       TEXT    NOT NULL,
+                visited_at TEXT    NOT NULL,
+                ip_hash    TEXT    NOT NULL,
+                country    TEXT    NOT NULL DEFAULT '',
+                city       TEXT    NOT NULL DEFAULT '',
+                region     TEXT    NOT NULL DEFAULT ''
+            );
         """)
         # Migrate pre-existing tables that may lack the visible column
         for table in ("book_submissions", "song_submissions"):
@@ -154,3 +163,53 @@ class Store:
     def delete_contact_message(self, row_id: int) -> None:
         self._db.execute("DELETE FROM contact_messages WHERE id = ?", (row_id,))
         self._db.commit()
+
+    # --- Page Views ---
+
+    def record_page_view(self, path: str, ip_hash: str,
+                         country: str = "", city: str = "",
+                         region: str = "") -> None:
+        from datetime import datetime, timezone
+        self._db.execute(
+            "INSERT INTO page_views (path, visited_at, ip_hash, country, city, region)"
+            " VALUES (?, ?, ?, ?, ?, ?)",
+            (path, datetime.now(timezone.utc).isoformat(), ip_hash,
+             country, city, region),
+        )
+        self._db.commit()
+
+    def get_known_ip_location(self, ip_hash: str) -> dict | None:
+        row = self._db.execute(
+            "SELECT country, city, region FROM page_views"
+            " WHERE ip_hash = ? AND country != '' LIMIT 1",
+            (ip_hash,),
+        ).fetchone()
+        return dict(row) if row else None
+
+    def get_visitor_stats(self) -> dict:
+        total = self._db.execute(
+            "SELECT COUNT(*) FROM page_views"
+        ).fetchone()[0]
+        unique = self._db.execute(
+            "SELECT COUNT(DISTINCT ip_hash) FROM page_views"
+        ).fetchone()[0]
+        return {"total_views": total, "unique_visitors": unique}
+
+    def get_visitor_locations(self) -> list:
+        rows = self._db.execute(
+            "SELECT country, city, region,"
+            " COUNT(DISTINCT ip_hash) AS visitors,"
+            " COUNT(*) AS views"
+            " FROM page_views WHERE country != ''"
+            " GROUP BY country, city, region"
+            " ORDER BY visitors DESC"
+        ).fetchall()
+        return [dict(row) for row in rows]
+
+    def get_recent_visits(self, limit: int = 50) -> list:
+        rows = self._db.execute(
+            "SELECT path, visited_at, country, city, region"
+            " FROM page_views ORDER BY id DESC LIMIT ?",
+            (limit,),
+        ).fetchall()
+        return [dict(row) for row in rows]

@@ -82,6 +82,14 @@ Contact form POSTs to `/api/contact`. On Lambda, `_send_via_ses()` in `routes/co
 - Features: manage book/song submissions (show/hide/delete), read/delete contact messages, edit all 6 JSON data files in `data/`
 - JSON edits only persist locally — Lambda filesystem is read-only, so redeploy to apply data changes
 
+## Visitor Tracking
+
+- `before_request` hook in `app.py` records every frontend page view (skips `/api`, `/admin`, `/static`, `/favicon.ico`)
+- IPs are SHA-256 hashed (first 16 hex chars) -- raw IPs are never stored
+- Geolocation via `ip-api.com` free tier (HTTP, 45 req/min); 1s timeout, runs only for new IP hashes
+- Data stored in `page_views` table: path, visited_at, ip_hash, country, city, region
+- Admin dashboard shows stats cards + Visitors tab with location breakdown and recent visits
+
 ## Change History
 
 | Date | File | What Changed |
@@ -89,7 +97,8 @@ Contact form POSTs to `/api/contact`. On Lambda, `_send_via_ses()` in `routes/co
 | 2026-04-07 | `static/css/style.css` | Light theme bg changed from cream (#ECEAE2) to off-white (#F5F4F2); card from #F2EEE6 to #F9F8F6 |
 | 2026-04-07 | `templates/base.html` | Cache-bust version bumped to v=26 |
 | 2026-04-07 | `routes/contact.py` | Wired SES email sending via `_send_via_ses()`; falls back to log on failure |
-| 2026-04-08 | `store.py` | Added `visible` column to submissions tables, `contact_messages` table, admin CRUD methods |
-| 2026-04-08 | `routes/admin.py` | New admin blueprint: login, dashboard, submissions management, JSON data file editor |
+| 2026-04-08 | `store.py` | Added `visible` column to submissions tables, `contact_messages` table, admin CRUD methods; added `page_views` table and visitor query methods |
+| 2026-04-08 | `routes/admin.py` | New admin blueprint: login, dashboard, submissions management, JSON data file editor; passes visitor data to dashboard |
 | 2026-04-08 | `routes/contact.py` | Save incoming messages to `contact_messages` DB table |
-| 2026-04-08 | `app.py` | Registered admin blueprint; added `SECRET_KEY` and `ADMIN_PASSWORD` config |
+| 2026-04-08 | `app.py` | Registered admin blueprint; added `SECRET_KEY` and `ADMIN_PASSWORD` config; added `_geolocate_ip()` and `before_request` page-view tracking |
+| 2026-04-08 | `templates/admin/dashboard.html` | Stats cards row, Visitors tab with location + recent-visits tables |

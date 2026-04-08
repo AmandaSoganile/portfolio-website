@@ -46,6 +46,22 @@ def get_store():
     return g.store
 
 
+def _geolocate_ip(ip: str) -> tuple:
+    """Return (country, city, region) for an IP via ip-api.com, or empty strings on failure."""
+    try:
+        import urllib.request
+        resp = urllib.request.urlopen(
+            f"http://ip-api.com/json/{ip}?fields=status,country,city,regionName",
+            timeout=1,
+        )
+        data = json.loads(resp.read())
+        if data.get("status") == "success":
+            return data.get("country", ""), data.get("city", ""), data.get("regionName", "")
+    except Exception:
+        pass
+    return "", "", ""
+
+
 def create_app(config=None):
     app = Flask(__name__)
     CORS(app)
@@ -80,6 +96,25 @@ def create_app(config=None):
     app.register_blueprint(contact_bp,    url_prefix='/api')
     app.register_blueprint(admin_bp)
     app.register_blueprint(frontend_bp)
+
+    @app.before_request
+    def track_page_view():
+        from flask import request as req
+        path = req.path
+        if path.startswith(("/api", "/admin", "/static")) or path == "/favicon.ico":
+            return
+        import hashlib
+        ip = req.headers.get("X-Forwarded-For", req.remote_addr or "127.0.0.1")
+        ip = ip.split(",")[0].strip()
+        ip_hash = hashlib.sha256(ip.encode()).hexdigest()[:16]
+
+        store = get_store()
+        known = store.get_known_ip_location(ip_hash)
+        if known:
+            country, city, region = known["country"], known["city"], known["region"]
+        else:
+            country, city, region = _geolocate_ip(ip)
+        store.record_page_view(path, ip_hash, country, city, region)
 
     return app
 
